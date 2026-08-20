@@ -145,5 +145,5 @@ export function useTuner() {
 function median(values: number[]) {
   if (values.length === 0) return null;
   const s = [...values].sort((a, b) => a - b);
-  return s[Math.floor(s.length / 2)];
+  return s[Math.floor(s.length / 2)]!;
 }
