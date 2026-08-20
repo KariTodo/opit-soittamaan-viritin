@@ -1,4 +1,4 @@
-import kaula from "@/assets/ukulelen-kaula.png.asset.json";
+import kaula from "@/assets/uke-neck.png.asset.json";
 import type { StringName } from "@/lib/strings";
 
 type Props = {
@@ -7,15 +7,15 @@ type Props = {
   onSelect?: (s: StringName) => void;
 };
 
-// Positions in % of the graphic: string line x, tuning peg x/y.
-const LAYOUT: Record<StringName, { x: number; pegX: number; pegY: number }> = {
-  G: { x: 34.1, pegX: 12, pegY: 21 },
-  C: { x: 44.3, pegX: 12, pegY: 39.5 },
-  E: { x: 55.5, pegX: 88, pegY: 39.5 },
-  A: { x: 65.5, pegX: 88, pegY: 21 },
+// Peg label positions in % of the graphic (left→right: G, C, A, E).
+const LAYOUT: Record<StringName, { x: number; y: number }> = {
+  C: { x: 31.4, y: 26.4 },
+  A: { x: 68.6, y: 26.5 },
+  G: { x: 30.9, y: 43.8 },
+  E: { x: 68.6, y: 43.9 },
 };
 
-const ORDER: StringName[] = ["G", "C", "E", "A"];
+const ORDER: StringName[] = ["G", "C", "A", "E"];
 
 export function UkuleleHead({ active, done = [], onSelect }: Props) {
   return (
@@ -32,39 +32,23 @@ export function UkuleleHead({ active, done = [], onSelect }: Props) {
             onClick={onSelect ? () => onSelect(s) : undefined}
             aria-label={`${s}-kieli`}
             aria-pressed={isActive}
-            className="absolute inset-y-0 w-[9%] cursor-pointer"
-            style={{ left: `${l.x - 4.5}%` }}
             disabled={!onSelect}
-          >
-            <span
-              className="absolute inset-y-[10%] left-1/2 w-[3px] -translate-x-1/2 rounded-full transition-all"
-              style={{
-                background: isActive
-                  ? "var(--tuner-good)"
-                  : isDone
-                    ? "color-mix(in oklab, var(--tuner-good) 45%, transparent)"
-                    : "transparent",
-                boxShadow: isActive ? "0 0 10px var(--tuner-good)" : "none",
-              }}
-            />
-            <span
-              className="absolute grid h-7 w-7 -translate-x-1/2 place-items-center rounded-full text-sm font-extrabold transition-all"
-              style={{
-                left: `${((l.pegX - (l.x - 4.5)) / 9) * 100}%`,
-                top: `${l.pegY}%`,
-                background: isActive
-                  ? "var(--tuner-good)"
-                  : isDone
-                    ? "color-mix(in oklab, var(--tuner-good) 25%, var(--card))"
-                    : "var(--card)",
-                color: isActive ? "var(--primary-foreground)" : "var(--foreground)",
-                border: "2px solid var(--tuner-good)",
-                transform: isActive ? "translateX(-50%) scale(1.25)" : "translateX(-50%)",
-              }}
-            >
-              {s}
-            </span>
-          </button>
+            className={`absolute h-[13%] w-[23%] -translate-x-1/2 -translate-y-1/2 rounded-full transition-all ${
+              onSelect ? "cursor-pointer" : "cursor-default"
+            }`}
+            style={{
+              left: `${l.x}%`,
+              top: `${l.y}%`,
+              boxShadow: isActive
+                ? "0 0 0 4px var(--tuner-good), 0 0 16px var(--tuner-good)"
+                : isDone
+                  ? "0 0 0 3px color-mix(in oklab, var(--tuner-good) 45%, transparent)"
+                  : "none",
+              transform: isActive
+                ? "translate(-50%, -50%) scale(1.08)"
+                : "translate(-50%, -50%)",
+            }}
+          />
         );
       })}
     </div>
