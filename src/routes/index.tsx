@@ -9,6 +9,7 @@ import logo from "@/assets/logo.png.asset.json";
 import konnaKorvat from "@/assets/konna-korvat.png.asset.json";
 import konnaTuumii from "@/assets/konna-tuumii.png.asset.json";
 import konnaPeukku from "@/assets/konna-peukku.png.asset.json";
+import konnaNeutraali from "@/assets/konna-neutraali.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -126,14 +127,23 @@ function Viritin() {
             ? "Alavire – kiristä kieltä vähän"
             : "Ylävire – löysää kieltä vähän";
 
+  const absCents = cents === null ? null : Math.abs(cents);
   const konna =
-    state === "intune" ? konnaPeukku.url : state === "close" ? konnaTuumii.url : konnaKorvat.url;
+    locked || (absCents !== null && absCents < 5)
+      ? konnaPeukku.url
+      : absCents === null
+        ? konnaNeutraali.url
+        : absCents >= 33
+          ? konnaKorvat.url
+          : konnaTuumii.url;
   const konnaAlt =
-    state === "intune"
+    konna === konnaPeukku.url
       ? "Iloinen konna näyttää peukkua"
-      : state === "close"
+      : konna === konnaTuumii.url
         ? "Konna miettii sormi poskella"
-        : "Konna pitää käsiä korvillaan";
+        : konna === konnaKorvat.url
+          ? "Konna pitää käsiä korvillaan"
+          : "Konna odottaa rauhallisena";
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-4 pb-6 pt-4">
