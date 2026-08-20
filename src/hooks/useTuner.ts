@@ -16,7 +16,7 @@ export function useTuner() {
   const streamRef = useRef<MediaStream | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const rafRef = useRef<number | null>(null);
-  const bufRef = useRef<Float32Array | null>(null);
+  const bufRef = useRef<Float32Array<ArrayBuffer> | null>(null);
   const historyRef = useRef<number[]>([]);
   const pausedRef = useRef(false);
   const missesRef = useRef(0);
@@ -80,7 +80,7 @@ export function useTuner() {
       source.connect(analyser);
       ctxRef.current = ctx;
       analyserRef.current = analyser;
-      bufRef.current = new Float32Array(analyser.fftSize);
+      bufRef.current = new Float32Array(new ArrayBuffer(analyser.fftSize * 4));
       setMicStatus("granted");
       rafRef.current = requestAnimationFrame(loop);
       return true;
