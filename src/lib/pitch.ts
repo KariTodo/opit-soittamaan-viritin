@@ -24,7 +24,7 @@ export function detectPitch(
       acf += buf[i]! * buf[i + lag]!;
       div += buf[i]! * buf[i]! + buf[i + lag]! * buf[i + lag]!;
     }
-    nsdf[lag]! = div > 0 ? (2 * acf) / div : 0;
+    nsdf[lag] = div > 0 ? (2 * acf) / div : 0;
   }
 
   // Collect maxima between positive zero crossings
@@ -60,9 +60,9 @@ export function detectPitch(
   }
 
   // Parabolic interpolation around the chosen lag
-  const y0 = nsdf[chosen - 1]! ?? nsdf[chosen]!;
+  const y0 = nsdf[chosen - 1] ?? nsdf[chosen]!;
   const y1 = nsdf[chosen]!;
-  const y2 = nsdf[chosen + 1]! ?? nsdf[chosen]!;
+  const y2 = nsdf[chosen + 1] ?? nsdf[chosen]!;
   const denom = 2 * (2 * y1 - y0 - y2);
   const shift = denom !== 0 ? (y2 - y0) / denom : 0;
   const trueLag = chosen + shift;
