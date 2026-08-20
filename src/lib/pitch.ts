@@ -1,6 +1,6 @@
 // McLeod Pitch Method (NSDF + peak picking). Runs fully in the browser.
 export function detectPitch(
-  buf: Float32Array,
+  buf: Float32Array<ArrayBufferLike>,
   sampleRate: number,
 ): { freq: number; clarity: number } | null {
   const size = buf.length;
