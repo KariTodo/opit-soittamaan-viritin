@@ -33,7 +33,7 @@ export function UkuleleHead({ active, done = [], onSelect }: Props) {
             aria-label={`${s}-kieli`}
             aria-pressed={isActive}
             disabled={!onSelect}
-            className={`absolute h-[13%] w-[23%] -translate-x-1/2 -translate-y-1/2 rounded-full transition-all ${
+            className={`absolute h-[13%] w-[23%] rounded-full transition-all ${
               onSelect ? "cursor-pointer" : "cursor-default"
             }`}
             style={{
