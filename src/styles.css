@@ -158,3 +158,72 @@
     color: var(--color-foreground);
   }
 }
+
+@theme inline {
+  --color-tuner-good: var(--tuner-good);
+  --color-tuner-close: var(--tuner-close);
+  --color-tuner-off: var(--tuner-off);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+@layer base {
+  body {
+    font-family: var(--font-body);
+    background-image: var(--gradient-soft);
+    background-attachment: fixed;
+  }
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+  }
+}
+
+@utility card-soft {
+  background: var(--card);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-soft);
+}
+
+@utility btn-big {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 1rem 2rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  box-shadow: var(--shadow-soft);
+  transition:
+    transform 120ms ease,
+    filter 120ms ease;
+  &:hover {
+    filter: brightness(1.05);
+  }
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+@utility btn-soft {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.65rem 1.4rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  transition: filter 120ms ease;
+  &:hover {
+    filter: brightness(0.97);
+  }
+}
