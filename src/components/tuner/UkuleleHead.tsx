@@ -9,10 +9,10 @@ type Props = {
 
 // Positions in % of the graphic: string line x, tuning peg x/y.
 const LAYOUT: Record<StringName, { x: number; pegX: number; pegY: number }> = {
-  G: { x: 36.5, pegX: 12, pegY: 21 },
-  C: { x: 45.5, pegX: 12, pegY: 39.5 },
-  E: { x: 55, pegX: 88, pegY: 39.5 },
-  A: { x: 64, pegX: 88, pegY: 21 },
+  G: { x: 34.1, pegX: 12, pegY: 21 },
+  C: { x: 44.3, pegX: 12, pegY: 39.5 },
+  E: { x: 55.5, pegX: 88, pegY: 39.5 },
+  A: { x: 65.5, pegX: 88, pegY: 21 },
 };
 
 const ORDER: StringName[] = ["G", "C", "E", "A"];
