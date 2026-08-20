@@ -149,7 +149,19 @@ function Viritin() {
     <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-4 pb-6 pt-4">
       <header className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
         <img src={logo.url} alt="Opit soittamaan!" className="h-12 w-12 shrink-0 sm:h-14 sm:w-14" />
-        <h1 className="truncate text-xl font-extrabold text-primary sm:text-2xl">Ukuleleviritin</h1>
+        <div className="min-w-0">
+          <h1 className="truncate text-xl font-extrabold text-primary sm:text-2xl">
+            Ukuleleviritin
+          </h1>
+          <a
+            href="https://www.opitsoittamaan.fi"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block truncate text-sm font-bold text-muted-foreground underline hover:text-primary"
+          >
+            www.opitsoittamaan.fi
+          </a>
+        </div>
         <button
           type="button"
           onClick={() => setMuted((m) => !m)}
@@ -165,7 +177,7 @@ function Viritin() {
           <section className="card-soft w-full max-w-md p-7 text-center">
             <h2 className="text-3xl font-extrabold text-primary">Ukuleleviritin</h2>
             <p className="mt-2 text-lg text-muted-foreground">Viritetään ukulele helposti!</p>
-            <img src={konnaPeukku.url} alt="" className="mx-auto my-4 h-40" />
+            <img src={konnaNeutraali.url} alt="" className="mx-auto my-4 h-40" />
             <button type="button" className="btn-big w-full" onClick={() => beginTuning(false)}>
               ALOITA VIRITYS
             </button>
@@ -211,24 +223,23 @@ function Viritin() {
 
         {phase === "tuning" && (
           <section className="w-full">
-            {manual && (
-              <div className="mb-4 flex justify-center gap-2">
-                {STRING_ORDER.map((s) => (
-                  <button
-                    key={s}
-                    type="button"
-                    onClick={() => goTo(s)}
-                    className={`h-14 w-14 rounded-full font-display text-2xl font-extrabold transition ${
-                      s === current
-                        ? "bg-primary text-primary-foreground shadow-md"
-                        : "bg-secondary text-secondary-foreground"
-                    }`}
-                  >
-                    {s}
-                  </button>
-                ))}
-              </div>
-            )}
+            <div className="mb-3 flex flex-col items-center gap-2">
+              <button
+                type="button"
+                className="btn-soft !px-5 !py-2 text-sm"
+                onClick={() => {
+                  setManual((m) => !m);
+                  setLocked(false);
+                }}
+              >
+                {manual ? "Automaattinen viritys" : "Valitse kieli itse"}
+              </button>
+              <p className="text-sm font-bold text-muted-foreground">
+                {manual
+                  ? "Valitse kieli klikkaamalla kielen nimeä lavassa."
+                  : "Näppää kieltä, jonka nimi näkyy alla."}
+              </p>
+            </div>
 
             <div className="grid items-center gap-4 sm:grid-cols-[auto_minmax(0,1fr)]">
               <div className="mx-auto w-40 sm:w-48">
