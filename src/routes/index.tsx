@@ -97,7 +97,7 @@ function Viritin() {
       setPhase("done");
       return;
     }
-    goTo(remaining[0]);
+    goTo(remaining[0]!);
   }, [current, tuned, manual, goTo]);
 
   const beginTuning = useCallback(
@@ -222,11 +222,7 @@ function Viritin() {
 
             <div className="grid items-center gap-4 sm:grid-cols-[auto_minmax(0,1fr)]">
               <div className="mx-auto w-40 sm:w-48">
-                <UkuleleHead
-                  active={current}
-                  done={tuned}
-                  onSelect={manual ? goTo : undefined}
-                />
+                <UkuleleHead active={current} done={tuned} {...(manual ? { onSelect: goTo } : {})} />
               </div>
 
               <div className="flex flex-col items-center text-center">
