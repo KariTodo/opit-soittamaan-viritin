@@ -9,10 +9,10 @@ type Props = {
 
 // Peg label positions in % of the graphic (left→right: G, C, A, E).
 const LAYOUT: Record<StringName, { x: number; y: number }> = {
-  C: { x: 31.4, y: 26.4 },
-  A: { x: 68.6, y: 26.5 },
-  G: { x: 30.9, y: 43.8 },
-  E: { x: 68.6, y: 43.9 },
+  C: { x: 31.2, y: 26.6 },
+  A: { x: 68.5, y: 26.6 },
+  G: { x: 31.2, y: 43.9 },
+  E: { x: 68.5, y: 43.9 },
 };
 
 const ORDER: StringName[] = ["G", "C", "A", "E"];
