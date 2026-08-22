@@ -57,7 +57,7 @@ export function UkuleleHead({ active, onSelect }: Props) {
             className={`absolute flex aspect-square w-[18%] items-center justify-center rounded-full border-[3px] font-display text-xl font-extrabold shadow-sm transition-all ${
               isActive
                 ? "border-tuner-good bg-tuner-good text-primary-foreground"
-                : "border-tuner-good bg-card text-foreground"
+                : "border-card bg-card text-foreground"
             } ${onSelect ? "cursor-pointer" : "cursor-default"}`}
             style={{
               left: `${l.x}%`,

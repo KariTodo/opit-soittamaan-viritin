@@ -106,24 +106,25 @@ export function useTuner() {
 
   useEffect(() => () => stop(), [stop]);
 
-  /** Play a short chime while the microphone analysis is paused. */
+  /** Play a clear two-note success chime while microphone analysis is paused. */
   const playSuccess = useCallback((freq: number) => {
     const ctx = ctxRef.current;
     if (!ctx) return;
     pausedRef.current = true;
     historyRef.current = [];
     const now = ctx.currentTime;
-    [freq, freq * 2].forEach((f, i) => {
+    [freq * 2, freq * 2.5].forEach((f, i) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      osc.type = "sine";
+      osc.type = "triangle";
       osc.frequency.value = f;
-      gain.gain.setValueAtTime(0, now);
-      gain.gain.linearRampToValueAtTime(i === 0 ? 0.25 : 0.12, now + 0.02);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.9);
+      const startsAt = now + i * 0.16;
+      gain.gain.setValueAtTime(0.0001, startsAt);
+      gain.gain.exponentialRampToValueAtTime(0.28, startsAt + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.0001, startsAt + 0.65);
       osc.connect(gain).connect(ctx.destination);
-      osc.start(now);
-      osc.stop(now + 1);
+      osc.start(startsAt);
+      osc.stop(startsAt + 0.7);
     });
     window.setTimeout(() => {
       pausedRef.current = false;
