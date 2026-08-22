@@ -193,7 +193,7 @@ function Viritin() {
       </header>
 
 
-      <div className="flex flex-1 flex-col items-center justify-center py-4">
+      <div className="flex flex-1 flex-col items-center justify-center py-2">
         {phase === "start" && (
           <section className="card-soft w-full max-w-md p-7 text-center">
             <h2 className="text-3xl font-extrabold text-primary">Ukuleleviritin</h2>
