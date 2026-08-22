@@ -52,15 +52,15 @@ function Viritin() {
     if (locked) return "intune";
     if (cents === null) return "unknown";
     const a = Math.abs(cents);
-    if (a < 5) return "intune";
-    if (a < 15) return "close";
+    if (a <= 8) return "intune";
+    if (a <= 25) return "close";
     return "off";
   }, [cents, locked]);
 
   // Hold ~600 ms in tune before accepting the string
   useEffect(() => {
     if (phase !== "tuning" || locked) return;
-    const inTune = cents !== null && Math.abs(cents) < 5;
+    const inTune = cents !== null && Math.abs(cents) <= 8;
     if (inTune) {
       if (holdRef.current === null) {
         holdRef.current = window.setTimeout(() => {
@@ -75,15 +75,21 @@ function Viritin() {
       window.clearTimeout(holdRef.current);
       holdRef.current = null;
     }
+  }, [cents, phase, locked, current, muted, playSuccess, pauseFor, target]);
+
+  useEffect(() => {
     return () => {
       if (holdRef.current !== null) {
         window.clearTimeout(holdRef.current);
-        holdRef.current = null;
       }
     };
-  }, [cents, phase, locked, current, muted, playSuccess, pauseFor, target]);
+  }, []);
 
   const goTo = useCallback((s: StringName) => {
+    if (holdRef.current !== null) {
+      window.clearTimeout(holdRef.current);
+      holdRef.current = null;
+    }
     setCurrent(s);
     setLocked(false);
   }, []);
@@ -243,11 +249,19 @@ function Viritin() {
 
             <div className="grid items-center gap-4 sm:grid-cols-[auto_minmax(0,1fr)]">
               <div className="mx-auto w-40 sm:w-48">
-                <UkuleleHead active={current} done={tuned} {...(manual ? { onSelect: goTo } : {})} />
+                <UkuleleHead active={current} {...(manual ? { onSelect: goTo } : {})} />
               </div>
 
               <div className="flex flex-col items-center text-center">
-                <p className="font-display text-6xl font-extrabold text-primary sm:text-7xl">
+                <p
+                  className={`font-display text-6xl font-extrabold sm:text-7xl ${
+                    state === "intune"
+                      ? "text-tuner-good"
+                      : state === "close"
+                        ? "text-tuner-close"
+                        : "text-tuner-off"
+                  }`}
+                >
                   {current}
                 </p>
                 <p className="text-lg font-bold text-foreground">Soita {current}-kieltä</p>
@@ -269,8 +283,8 @@ function Viritin() {
                   </p>
                 </div>
                 <p className="mt-1 h-5 text-xs text-muted-foreground">
-                  {reading.freq !== null && !locked
-                    ? `${reading.freq.toFixed(1)} Hz · ${cents!.toFixed(0)} cents`
+                  {reading.freq !== null && cents !== null && !locked
+                    ? `${reading.freq.toFixed(1)} Hz · ${cents.toFixed(0)} cents`
                     : ""}
                 </p>
 
