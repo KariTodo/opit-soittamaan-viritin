@@ -168,17 +168,32 @@ function Viritin() {
             www.opitsoittamaan.fi
           </a>
         </div>
-        <button
-          type="button"
-          onClick={() => setMuted((m) => !m)}
-          className="btn-soft shrink-0 !px-4 !py-2 text-sm"
-          aria-pressed={muted}
-        >
-          {muted ? "🔇 Äänet pois" : "🔊 Äänet"}
-        </button>
+        <div className="flex shrink-0 flex-col items-stretch gap-1.5">
+          <button
+            type="button"
+            onClick={() => setMuted((m) => !m)}
+            className="btn-soft !px-4 !py-1.5 text-sm"
+            aria-pressed={muted}
+          >
+            {muted ? "🔇 Äänet pois" : "🔊 Äänet"}
+          </button>
+          {phase === "tuning" && (
+            <button
+              type="button"
+              className="btn-soft !px-4 !py-1.5 text-xs"
+              onClick={() => {
+                setManual((m) => !m);
+                setLocked(false);
+              }}
+            >
+              {manual ? "Automaattinen viritys" : "Valitse kieli itse"}
+            </button>
+          )}
+        </div>
       </header>
 
-      <div className="flex flex-1 flex-col items-center justify-center py-4">
+
+      <div className="flex flex-1 flex-col items-center justify-center py-2">
         {phase === "start" && (
           <section className="card-soft w-full max-w-md p-7 text-center">
             <h2 className="text-3xl font-extrabold text-primary">Ukuleleviritin</h2>
@@ -229,87 +244,83 @@ function Viritin() {
 
         {phase === "tuning" && (
           <section className="w-full">
-            <div className="mb-3 flex flex-col items-center gap-2">
-              <button
-                type="button"
-                className="btn-soft !px-5 !py-2 text-sm"
-                onClick={() => {
-                  setManual((m) => !m);
-                  setLocked(false);
-                }}
-              >
-                {manual ? "Automaattinen viritys" : "Valitse kieli itse"}
-              </button>
-              <p className="text-sm font-bold text-muted-foreground">
-                {manual
-                  ? "Valitse kieli klikkaamalla kielen nimeä lavassa."
-                  : "Näppää kieltä, jonka nimi näkyy alla."}
-              </p>
+            {/* Vaihtoehtoinen ylänäkymä: ohje TAI onnistumispalaute + seuraava */}
+            <div className="mb-2 flex min-h-[3.25rem] flex-col items-center justify-center gap-2 text-center">
+              {locked ? (
+                <div className="flex flex-wrap items-center justify-center gap-3">
+                  <p className="text-base font-extrabold text-tuner-good sm:text-lg">
+                    Hienoa! {current} on vireessä.
+                  </p>
+                  <button
+                    type="button"
+                    className="btn-big !px-6 !py-2 !text-base"
+                    onClick={nextString}
+                  >
+                    {manual ? "JATKA" : "SEURAAVA"}
+                  </button>
+                </div>
+              ) : (
+                <p className="text-sm font-bold text-muted-foreground sm:text-base">
+                  {manual
+                    ? "Valitse kieli klikkaamalla kielen nimeä lavassa."
+                    : "Näppää kieltä, jonka nimi näkyy alla."}
+                </p>
+              )}
             </div>
 
-            <div className="grid items-center gap-4 sm:grid-cols-[auto_minmax(0,1fr)]">
-              <div className="mx-auto w-40 sm:w-48">
+            <div className="grid items-center gap-3 sm:grid-cols-[auto_minmax(0,1fr)]">
+              <div className="mx-auto w-32 sm:w-44">
                 <UkuleleHead active={current} {...(manual ? { onSelect: goTo } : {})} />
               </div>
 
               <div className="flex flex-col items-center text-center">
-                <p
-                  className={`font-display text-6xl font-extrabold sm:text-7xl ${
-                    state === "intune"
-                      ? "text-tuner-good"
-                      : state === "close"
-                        ? "text-tuner-close"
-                        : "text-tuner-off"
-                  }`}
-                >
-                  {current}
-                </p>
-                <p className="text-lg font-bold text-foreground">Soita {current}-kieltä</p>
-                <Meter cents={locked ? 0 : cents} state={state} />
-                <div className="mt-1 flex items-center justify-center gap-3">
-                  <img src={konna} alt={konnaAlt} className="h-24 sm:h-28" />
-                  <p
-                    className="max-w-[11rem] font-display text-xl font-extrabold"
-                    style={{
-                      color:
+                <div className="grid w-full max-w-sm grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
+                  <div className="min-w-0">
+                    <p
+                      className={`font-display text-5xl font-extrabold leading-none sm:text-6xl ${
                         state === "intune"
-                          ? "var(--tuner-good)"
+                          ? "text-tuner-good"
                           : state === "close"
-                            ? "var(--tuner-close)"
-                            : "var(--tuner-off)",
-                    }}
-                  >
-                    {locked ? "VIREESSÄ!" : guidance}
-                  </p>
+                            ? "text-tuner-close"
+                            : "text-tuner-off"
+                      }`}
+                    >
+                      {current}
+                    </p>
+                    <p className="text-sm font-bold text-foreground sm:text-base">
+                      Soita {current}-kieltä
+                    </p>
+                  </div>
+                  <img src={konna} alt={konnaAlt} className="h-20 shrink-0 sm:h-24" />
                 </div>
-                <p className="mt-1 h-5 text-xs text-muted-foreground">
+
+                <div className="w-full max-w-[17rem] sm:max-w-xs">
+                  <Meter cents={locked ? 0 : cents} state={state} />
+                </div>
+
+                <p
+                  className="font-display text-lg font-extrabold sm:text-xl"
+                  style={{
+                    color:
+                      state === "intune"
+                        ? "var(--tuner-good)"
+                        : state === "close"
+                          ? "var(--tuner-close)"
+                          : "var(--tuner-off)",
+                  }}
+                >
+                  {locked ? "VIREESSÄ!" : guidance}
+                </p>
+                <p className="h-4 text-xs text-muted-foreground">
                   {reading.freq !== null && cents !== null && !locked
                     ? `${reading.freq.toFixed(1)} Hz · ${cents.toFixed(0)} cents`
                     : ""}
                 </p>
-
-                {locked && (
-                  <div className="mt-2 w-full max-w-sm">
-                    <p className="text-lg font-bold text-foreground">
-                      Hienoa! {current} on vireessä.
-                    </p>
-                    {!manual &&
-                      STRING_ORDER.filter((s) => !tuned.includes(s) && s !== current).length >
-                        0 && (
-                        <p className="text-base text-muted-foreground">
-                          Siirry seuraavaan kieleen:{" "}
-                          {STRING_ORDER.filter((s) => !tuned.includes(s) && s !== current)[0]}
-                        </p>
-                      )}
-                    <button type="button" className="btn-big mt-3 w-full" onClick={nextString}>
-                      {manual ? "JATKA" : "SEURAAVA"}
-                    </button>
-                  </div>
-                )}
               </div>
             </div>
           </section>
         )}
+
 
         {phase === "done" && (
           <section className="card-soft w-full max-w-md p-7 text-center">
