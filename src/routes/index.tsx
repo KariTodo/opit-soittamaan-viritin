@@ -168,15 +168,30 @@ function Viritin() {
             www.opitsoittamaan.fi
           </a>
         </div>
-        <button
-          type="button"
-          onClick={() => setMuted((m) => !m)}
-          className="btn-soft shrink-0 !px-4 !py-2 text-sm"
-          aria-pressed={muted}
-        >
-          {muted ? "🔇 Äänet pois" : "🔊 Äänet"}
-        </button>
+        <div className="flex shrink-0 flex-col items-stretch gap-1.5">
+          <button
+            type="button"
+            onClick={() => setMuted((m) => !m)}
+            className="btn-soft !px-4 !py-1.5 text-sm"
+            aria-pressed={muted}
+          >
+            {muted ? "🔇 Äänet pois" : "🔊 Äänet"}
+          </button>
+          {phase === "tuning" && (
+            <button
+              type="button"
+              className="btn-soft !px-4 !py-1.5 text-xs"
+              onClick={() => {
+                setManual((m) => !m);
+                setLocked(false);
+              }}
+            >
+              {manual ? "Automaattinen viritys" : "Valitse kieli itse"}
+            </button>
+          )}
+        </div>
       </header>
+
 
       <div className="flex flex-1 flex-col items-center justify-center py-4">
         {phase === "start" && (
