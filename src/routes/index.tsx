@@ -245,7 +245,7 @@ function Viritin() {
         {phase === "tuning" && (
           <section className="w-full">
             {/* Vaihtoehtoinen ylänäkymä: ohje TAI onnistumispalaute + seuraava */}
-            <div className="mb-2 flex min-h-[3.25rem] flex-col items-center justify-center gap-2 text-center">
+            <div className="mb-1 flex min-h-[2.5rem] flex-col items-center justify-center gap-1 text-center">
               {locked ? (
                 <div className="flex flex-wrap items-center justify-center gap-3">
                   <p className="text-base font-extrabold text-tuner-good sm:text-lg">
@@ -268,57 +268,61 @@ function Viritin() {
               )}
             </div>
 
-            <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3">
-              <div className="w-36 sm:w-52">
+            {/* Kaula + konna vierekkäin, mahdollisimman suurina */}
+            <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-1 sm:gap-4">
+              <div className="mx-auto w-full max-w-60 sm:max-w-72">
                 <UkuleleHead active={current} {...(manual ? { onSelect: goTo } : {})} />
               </div>
-
-              <div className="flex min-w-0 flex-col items-center text-center">
-                <img src={konna} alt={konnaAlt} className="mb-1 h-24 sm:h-32" />
-
-                <div className="w-full max-w-[16rem] sm:max-w-xs">
-                  <div className="flex items-end justify-between gap-2">
-                    <p className="text-sm font-bold text-foreground sm:text-base">
-                      Soita {current}-kieltä
-                    </p>
-                    <p
-                      className={`font-display text-4xl font-extrabold leading-none sm:text-5xl ${
-                        state === "intune"
-                          ? "text-tuner-good"
-                          : state === "close"
-                            ? "text-tuner-close"
-                            : "text-tuner-off"
-                      }`}
-                    >
-                      {current}
-                    </p>
-                  </div>
-                  <Meter cents={locked ? 0 : cents} state={state} />
-                </div>
-
-                <p
-                  className="font-display text-lg font-extrabold sm:text-xl"
-                  style={{
-                    color:
-                      state === "intune"
-                        ? "var(--tuner-good)"
-                        : state === "close"
-                          ? "var(--tuner-close)"
-                          : "var(--tuner-off)",
-                  }}
-                >
-                  {locked ? "VIREESSÄ!" : guidance}
-                </p>
-                <p className="h-4 text-xs text-muted-foreground">
-                  {reading.freq !== null && cents !== null && !locked
-                    ? `${reading.freq.toFixed(1)} Hz · ${cents.toFixed(0)} cents`
-                    : ""}
-                </p>
-              </div>
+              <img src={konna} alt={konnaAlt} className="h-36 w-auto sm:h-48" />
             </div>
 
+            {/* Ohje vasemmalla, sävelkirjain oikealla */}
+            <div className="mt-1 flex items-end justify-between gap-2">
+              <p className="text-base font-bold text-foreground sm:text-lg">
+                Soita {current}-kieltä
+              </p>
+              <p
+                className={`font-display text-4xl font-extrabold leading-none sm:text-5xl ${
+                  state === "intune"
+                    ? "text-tuner-good"
+                    : state === "close"
+                      ? "text-tuner-close"
+                      : "text-tuner-off"
+                }`}
+              >
+                {current}
+              </p>
+            </div>
+
+            {/* Mittari koko rivin levyisenä */}
+            <div className="-mt-2 flex justify-center">
+              <Meter cents={locked ? 0 : cents} state={state} />
+            </div>
+
+            {/* Palaute mittarin alla */}
+            <div className="-mt-2 flex flex-col items-center text-center">
+              <p
+                className="font-display text-lg font-extrabold sm:text-xl"
+                style={{
+                  color:
+                    state === "intune"
+                      ? "var(--tuner-good)"
+                      : state === "close"
+                        ? "var(--tuner-close)"
+                        : "var(--tuner-off)",
+                }}
+              >
+                {locked ? "VIREESSÄ!" : guidance}
+              </p>
+              <p className="h-4 text-xs text-muted-foreground">
+                {reading.freq !== null && cents !== null && !locked
+                  ? `${reading.freq.toFixed(1)} Hz · ${cents.toFixed(0)} cents`
+                  : ""}
+              </p>
+            </div>
           </section>
         )}
+
 
 
         {phase === "done" && (
