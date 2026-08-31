@@ -163,7 +163,7 @@ function Viritin() {
             href="https://www.opitsoittamaan.fi"
             target="_blank"
             rel="noopener noreferrer"
-            className="block truncate text-sm font-bold text-muted-foreground underline hover:text-primary"
+            className="block truncate text-xs font-bold text-muted-foreground underline hover:text-primary sm:text-sm"
           >
             www.opitsoittamaan.fi
           </a>
