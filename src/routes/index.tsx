@@ -270,10 +270,10 @@ function Viritin() {
 
             {/* Kaula + konna vierekkäin, mahdollisimman suurina */}
             <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-1 sm:gap-4">
-              <div className="mx-auto w-full max-w-60 sm:max-w-72">
+              <div className="mx-auto w-full max-w-52 sm:max-w-64">
                 <UkuleleHead active={current} {...(manual ? { onSelect: goTo } : {})} />
               </div>
-              <img src={konna} alt={konnaAlt} className="h-36 w-auto sm:h-48" />
+              <img src={konna} alt={konnaAlt} className="h-32 w-auto sm:h-44" />
             </div>
 
             {/* Ohje vasemmalla, sävelkirjain oikealla */}
