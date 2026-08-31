@@ -1,4 +1,4 @@
-import kaula from "@/assets/uke-neck-clean.png";
+import kaula from "@/assets/uke-neck-short.png";
 import type { StringName } from "@/lib/strings";
 
 type Props = {
@@ -6,26 +6,26 @@ type Props = {
   onSelect?: (s: StringName) => void;
 };
 
-// Peg positions and string paths in % of the graphic.
+// Peg positions and string paths in % of the (shortened) graphic.
 const LAYOUT: Record<StringName, { x: number; y: number }> = {
-  C: { x: 34.2, y: 21.9 },
-  E: { x: 65.8, y: 21.9 },
-  G: { x: 34.2, y: 36.1 },
-  A: { x: 65.8, y: 36.1 },
+  C: { x: 34.6, y: 32.8 },
+  E: { x: 65.9, y: 32.8 },
+  G: { x: 33.7, y: 54.4 },
+  A: { x: 66.1, y: 54.4 },
 };
 
 const STRING_PATHS: Record<StringName, string> = {
-  G: "M 34.2 36.1 L 36 49.5 L 35.7 100",
-  C: "M 34.2 21.9 L 45.5 49.5 L 45.5 100",
-  E: "M 65.8 21.9 L 54.5 49.5 L 54.5 100",
-  A: "M 65.8 36.1 L 64 49.5 L 64.3 100",
+  G: "M 33.7 54.4 L 36.5 74.5 L 36.5 100",
+  C: "M 34.6 32.8 L 45.0 74.5 L 45.0 100",
+  E: "M 65.9 32.8 L 54.2 74.5 L 54.2 100",
+  A: "M 66.1 54.4 L 63.2 74.5 L 63.2 100",
 };
 
 const ORDER: StringName[] = ["G", "C", "E", "A"];
 
 export function UkuleleHead({ active, onSelect }: Props) {
   return (
-    <div className="relative mx-auto w-full max-w-[230px] select-none">
+    <div className="relative mx-auto w-full select-none">
       <img src={kaula} alt="Ukulelen lapa ja kielet" className="w-full" draggable={false} />
       <svg
         viewBox="0 0 100 100"
@@ -54,7 +54,7 @@ export function UkuleleHead({ active, onSelect }: Props) {
             aria-label={`${s}-kieli`}
             aria-pressed={isActive}
             disabled={!onSelect}
-            className={`absolute flex aspect-square w-[18%] items-center justify-center rounded-full border-[3px] font-display text-xl font-extrabold shadow-sm transition-all ${
+            className={`absolute flex aspect-square w-[20%] items-center justify-center rounded-full border-[3px] font-display text-xl font-extrabold shadow-sm transition-all ${
               isActive
                 ? "border-tuner-good bg-tuner-good text-primary-foreground"
                 : "border-card bg-card text-foreground"
