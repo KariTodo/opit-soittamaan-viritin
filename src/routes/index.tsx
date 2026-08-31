@@ -163,7 +163,7 @@ function Viritin() {
             href="https://www.opitsoittamaan.fi"
             target="_blank"
             rel="noopener noreferrer"
-            className="block truncate text-sm font-bold text-muted-foreground underline hover:text-primary"
+            className="block truncate text-xs font-bold text-muted-foreground underline hover:text-primary sm:text-sm"
           >
             www.opitsoittamaan.fi
           </a>
@@ -268,16 +268,21 @@ function Viritin() {
               )}
             </div>
 
-            <div className="grid items-center gap-3 sm:grid-cols-[auto_minmax(0,1fr)]">
-              <div className="mx-auto w-32 sm:w-44">
+            <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3">
+              <div className="w-36 sm:w-52">
                 <UkuleleHead active={current} {...(manual ? { onSelect: goTo } : {})} />
               </div>
 
-              <div className="flex flex-col items-center text-center">
-                <div className="grid w-full max-w-sm grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
-                  <div className="min-w-0">
+              <div className="flex min-w-0 flex-col items-center text-center">
+                <img src={konna} alt={konnaAlt} className="mb-1 h-24 sm:h-32" />
+
+                <div className="w-full max-w-[16rem] sm:max-w-xs">
+                  <div className="flex items-end justify-between gap-2">
+                    <p className="text-sm font-bold text-foreground sm:text-base">
+                      Soita {current}-kieltä
+                    </p>
                     <p
-                      className={`font-display text-5xl font-extrabold leading-none sm:text-6xl ${
+                      className={`font-display text-4xl font-extrabold leading-none sm:text-5xl ${
                         state === "intune"
                           ? "text-tuner-good"
                           : state === "close"
@@ -287,14 +292,7 @@ function Viritin() {
                     >
                       {current}
                     </p>
-                    <p className="text-sm font-bold text-foreground sm:text-base">
-                      Soita {current}-kieltä
-                    </p>
                   </div>
-                  <img src={konna} alt={konnaAlt} className="h-20 shrink-0 sm:h-24" />
-                </div>
-
-                <div className="w-full max-w-[17rem] sm:max-w-xs">
                   <Meter cents={locked ? 0 : cents} state={state} />
                 </div>
 
@@ -318,6 +316,7 @@ function Viritin() {
                 </p>
               </div>
             </div>
+
           </section>
         )}
 
