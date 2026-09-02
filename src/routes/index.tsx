@@ -286,28 +286,30 @@ function Viritin() {
               <img src={konna} alt={konnaAlt} className="h-32 w-auto sm:h-56" />
             </div>
 
-            {/* Ohje vasemmalla, sävelkirjain oikealla */}
-            <div className="mx-auto mt-1 flex w-full max-w-sm items-end justify-between gap-2">
-              <p className="text-base font-bold text-foreground sm:text-lg">
-                Soita {current}-kieltä
-              </p>
-              <p
-                className={`font-display text-5xl font-extrabold leading-none sm:text-6xl ${
-                  state === "intune"
-                    ? "text-tuner-good"
-                    : state === "close"
-                      ? "text-tuner-close"
-                      : "text-tuner-off"
-                }`}
-              >
-                {current}
-              </p>
+            {/* Ohje ja sävelkirjain mittarin yläkulmissa */}
+            <div className="mx-auto w-full max-w-[19rem] sm:max-w-sm">
+              <div className="flex items-end justify-between gap-2 px-1">
+                <p className="text-base font-bold text-foreground sm:text-lg">
+                  Soita {current}-kieltä
+                </p>
+                <p
+                  className={`font-display text-5xl font-extrabold leading-none sm:text-6xl ${
+                    state === "intune"
+                      ? "text-tuner-good"
+                      : state === "close"
+                        ? "text-tuner-close"
+                        : "text-tuner-off"
+                  }`}
+                >
+                  {current}
+                </p>
+              </div>
+
+              <div className="-mt-1 flex justify-center">
+                <Meter cents={locked ? 0 : cents} state={state} />
+              </div>
             </div>
 
-            {/* Mittari koko rivin levyisenä */}
-            <div className="-mt-1 flex justify-center">
-              <Meter cents={locked ? 0 : cents} state={state} />
-            </div>
 
             {/* Palaute mittarin alla */}
             <div className="mt-1 flex flex-col items-center text-center">
