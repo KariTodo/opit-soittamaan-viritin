@@ -268,21 +268,31 @@ function Viritin() {
               )}
             </div>
 
-            {/* Kaula + konna vierekkäin, mahdollisimman suurina */}
-            <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-1 sm:gap-4">
-              <div className="mx-auto w-full max-w-52 sm:max-w-64">
-                <UkuleleHead active={current} {...(manual ? { onSelect: goTo } : {})} />
+            {/* Kaula + konna vierekkäin, keskitettynä */}
+            <div className="flex items-center justify-center gap-2 sm:gap-8">
+              <div className="flex items-center gap-1 sm:gap-2">
+                <div className="w-44 sm:w-56">
+                  <UkuleleHead active={current} {...(manual ? { onSelect: goTo } : {})} />
+                </div>
+                <div className="flex w-14 flex-col items-center text-tuner-good sm:w-16">
+                  <span aria-hidden="true" className="text-2xl leading-none sm:text-3xl">
+                    ↑
+                  </span>
+                  <span className="text-center text-[10px] font-bold leading-tight sm:text-xs">
+                    kieli kiristyy
+                  </span>
+                </div>
               </div>
-              <img src={konna} alt={konnaAlt} className="h-32 w-auto sm:h-44" />
+              <img src={konna} alt={konnaAlt} className="h-32 w-auto sm:h-56" />
             </div>
 
             {/* Ohje vasemmalla, sävelkirjain oikealla */}
-            <div className="mt-1 flex items-end justify-between gap-2">
+            <div className="mx-auto mt-1 flex w-full max-w-sm items-end justify-between gap-2">
               <p className="text-base font-bold text-foreground sm:text-lg">
                 Soita {current}-kieltä
               </p>
               <p
-                className={`font-display text-4xl font-extrabold leading-none sm:text-5xl ${
+                className={`font-display text-5xl font-extrabold leading-none sm:text-6xl ${
                   state === "intune"
                     ? "text-tuner-good"
                     : state === "close"
@@ -295,12 +305,13 @@ function Viritin() {
             </div>
 
             {/* Mittari koko rivin levyisenä */}
-            <div className="-mt-2 flex justify-center">
+            <div className="-mt-1 flex justify-center">
               <Meter cents={locked ? 0 : cents} state={state} />
             </div>
 
             {/* Palaute mittarin alla */}
-            <div className="-mt-2 flex flex-col items-center text-center">
+            <div className="mt-1 flex flex-col items-center text-center">
+
               <p
                 className="font-display text-lg font-extrabold sm:text-xl"
                 style={{
