@@ -7,7 +7,7 @@ import { centsBetween } from "@/lib/pitch";
 import { STRING_ORDER, freqOf, type StringName } from "@/lib/strings";
 import logo from "@/assets/logo.png.asset.json";
 import konnaKorvat from "@/assets/konna-korvat.png.asset.json";
-import konnaTuumii from "@/assets/konna-tuumii.png.asset.json";
+import konnaTuumii from "@/assets/konna-lahella.png.asset.json";
 import konnaPeukku from "@/assets/konna-peukku.png.asset.json";
 import konnaNeutraali from "@/assets/konna-neutraali.png.asset.json";
 
@@ -146,13 +146,13 @@ function Viritin() {
     konna === konnaPeukku.url
       ? "Iloinen konna näyttää peukkua"
       : konna === konnaTuumii.url
-        ? "Konna miettii sormi poskella"
+        ? "Konna näyttää sormillaan, että vire on lähellä"
         : konna === konnaKorvat.url
           ? "Konna pitää käsiä korvillaan"
           : "Konna odottaa rauhallisena";
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-4 pb-6 pt-4">
+    <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-4 pb-3 pt-3">
       <header className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
         <img src={logo.url} alt="Opit soittamaan!" className="h-12 w-12 shrink-0 sm:h-14 sm:w-14" />
         <div className="min-w-0">
@@ -268,39 +268,52 @@ function Viritin() {
               )}
             </div>
 
-            {/* Kaula + konna vierekkäin, mahdollisimman suurina */}
-            <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-1 sm:gap-4">
-              <div className="mx-auto w-full max-w-52 sm:max-w-64">
-                <UkuleleHead active={current} {...(manual ? { onSelect: goTo } : {})} />
+            {/* Kaula + konna vierekkäin, keskitettynä */}
+            <div className="flex items-center justify-center gap-2 sm:gap-8">
+              <div className="flex items-center gap-1 sm:gap-2">
+                <div className="w-40 sm:w-56">
+                  <UkuleleHead active={current} {...(manual ? { onSelect: goTo } : {})} />
+                </div>
+                <div className="flex w-14 flex-col items-center text-tuner-good sm:w-16">
+                  <span aria-hidden="true" className="text-2xl leading-none sm:text-3xl">
+                    ↑
+                  </span>
+                  <span className="text-center text-[10px] font-bold leading-tight sm:text-xs">
+                    kieli kiristyy
+                  </span>
+                </div>
               </div>
-              <img src={konna} alt={konnaAlt} className="h-32 w-auto sm:h-44" />
+              <img src={konna} alt={konnaAlt} className="h-28 w-auto sm:h-56" />
             </div>
 
-            {/* Ohje vasemmalla, sävelkirjain oikealla */}
-            <div className="mt-1 flex items-end justify-between gap-2">
-              <p className="text-base font-bold text-foreground sm:text-lg">
-                Soita {current}-kieltä
-              </p>
-              <p
-                className={`font-display text-4xl font-extrabold leading-none sm:text-5xl ${
-                  state === "intune"
-                    ? "text-tuner-good"
-                    : state === "close"
-                      ? "text-tuner-close"
-                      : "text-tuner-off"
-                }`}
-              >
-                {current}
-              </p>
+            {/* Ohje ja sävelkirjain mittarin yläkulmissa */}
+            <div className="mx-auto w-full max-w-[17rem] sm:max-w-sm">
+              <div className="flex items-end justify-between gap-2 px-1">
+                <p className="text-base font-bold text-foreground sm:text-lg">
+                  Soita {current}-kieltä
+                </p>
+                <p
+                  className={`font-display text-5xl font-extrabold leading-none sm:text-6xl ${
+                    state === "intune"
+                      ? "text-tuner-good"
+                      : state === "close"
+                        ? "text-tuner-close"
+                        : "text-tuner-off"
+                  }`}
+                >
+                  {current}
+                </p>
+              </div>
+
+              <div className="-mt-1 flex justify-center">
+                <Meter cents={locked ? 0 : cents} state={state} />
+              </div>
             </div>
 
-            {/* Mittari koko rivin levyisenä */}
-            <div className="-mt-2 flex justify-center">
-              <Meter cents={locked ? 0 : cents} state={state} />
-            </div>
 
             {/* Palaute mittarin alla */}
-            <div className="-mt-2 flex flex-col items-center text-center">
+            <div className="mt-1 flex flex-col items-center text-center">
+
               <p
                 className="font-display text-lg font-extrabold sm:text-xl"
                 style={{
@@ -362,12 +375,12 @@ function Viritin() {
         )}
       </div>
 
-      <footer className="text-center text-xs text-muted-foreground">
+      <footer className="text-center text-[10px] leading-tight text-muted-foreground sm:text-xs">
         <p>
           Mikrofonin ääntä käsitellään vain tällä laitteella. Ääntä ei tallenneta eikä lähetetä
           palvelimelle.
         </p>
-        <p className="mt-1">www.opitsoittamaan.fi</p>
+        <p className="mt-1 hidden sm:block">www.opitsoittamaan.fi</p>
       </footer>
     </main>
   );
