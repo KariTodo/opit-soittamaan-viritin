@@ -256,7 +256,7 @@ function Viritin() {
                     className="btn-big !px-6 !py-2 !text-base"
                     onClick={nextString}
                   >
-                    {manual ? "JATKA" : "SEURAAVA"}
+                    {manual ? "JATKA" : "Seuraava kieli"}
                   </button>
                 </div>
               ) : (
@@ -274,14 +274,16 @@ function Viritin() {
                 <div className="w-40 sm:w-56">
                   <UkuleleHead active={current} {...(manual ? { onSelect: goTo } : {})} />
                 </div>
-                <div className="flex w-14 flex-col items-center text-tuner-good sm:w-16">
-                  <span aria-hidden="true" className="text-2xl leading-none sm:text-3xl">
-                    ↑
-                  </span>
-                  <span className="text-center text-[10px] font-bold leading-tight sm:text-xs">
-                    kieli kiristyy
-                  </span>
-                </div>
+                {cents !== null && !locked && state !== "intune" && (
+                  <div className="flex w-14 flex-col items-center text-tuner-good sm:w-16">
+                    <span aria-hidden="true" className="text-2xl leading-none sm:text-3xl">
+                      {cents < 0 ? "↑" : "↓"}
+                    </span>
+                    <span className="text-center text-[10px] font-bold leading-tight sm:text-xs">
+                      {cents < 0 ? "kiristä kieltä" : "löystä kieltä"}
+                    </span>
+                  </div>
+                )}
               </div>
               <img src={konna} alt={konnaAlt} className="h-28 w-auto sm:h-56" />
             </div>
