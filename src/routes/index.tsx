@@ -375,12 +375,12 @@ function Viritin() {
         )}
       </div>
 
-      <footer className="text-center text-xs text-muted-foreground">
+      <footer className="text-center text-[10px] leading-tight text-muted-foreground sm:text-xs">
         <p>
           Mikrofonin ääntä käsitellään vain tällä laitteella. Ääntä ei tallenneta eikä lähetetä
           palvelimelle.
         </p>
-        <p className="mt-1">www.opitsoittamaan.fi</p>
+        <p className="mt-1 hidden sm:block">www.opitsoittamaan.fi</p>
       </footer>
     </main>
   );
