@@ -7,7 +7,7 @@ import { centsBetween } from "@/lib/pitch";
 import { STRING_ORDER, freqOf, type StringName } from "@/lib/strings";
 import logo from "@/assets/logo.png.asset.json";
 import konnaKorvat from "@/assets/konna-korvat.png.asset.json";
-import konnaTuumii from "@/assets/konna-tuumii.png.asset.json";
+import konnaTuumii from "@/assets/konna-lahella.png.asset.json";
 import konnaPeukku from "@/assets/konna-peukku.png.asset.json";
 import konnaNeutraali from "@/assets/konna-neutraali.png.asset.json";
 
@@ -146,7 +146,7 @@ function Viritin() {
     konna === konnaPeukku.url
       ? "Iloinen konna näyttää peukkua"
       : konna === konnaTuumii.url
-        ? "Konna miettii sormi poskella"
+        ? "Konna näyttää sormillaan, että vire on lähellä"
         : konna === konnaKorvat.url
           ? "Konna pitää käsiä korvillaan"
           : "Konna odottaa rauhallisena";
