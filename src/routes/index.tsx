@@ -196,8 +196,11 @@ function Viritin() {
       <div className="flex flex-1 flex-col items-center justify-center py-2">
         {phase === "start" && (
           <section className="card-soft w-full max-w-md p-7 text-center">
+            <p className="text-sm font-bold uppercase tracking-wide text-muted-foreground">
+              Opit soittamaan!
+            </p>
             <h2 className="text-3xl font-extrabold text-primary">Ukuleleviritin</h2>
-            <p className="mt-2 text-lg text-muted-foreground">Viritetään ukulele helposti!</p>
+            <p className="mt-2 text-lg text-muted-foreground">Ukulele vireeseen helposti!</p>
             <img src={konnaNeutraali.url} alt="" className="mx-auto my-4 h-40" />
             <button type="button" className="btn-big w-full" onClick={() => beginTuning(false)}>
               ALOITA VIRITYS
@@ -207,7 +210,7 @@ function Viritin() {
               className="btn-soft mt-3 w-full"
               onClick={() => beginTuning(true)}
             >
-              Valitse kieli itse
+              Valitse viritettävä kieli itse
             </button>
           </section>
         )}
