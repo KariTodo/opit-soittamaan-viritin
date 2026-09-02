@@ -152,7 +152,7 @@ function Viritin() {
           : "Konna odottaa rauhallisena";
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-4 pb-6 pt-4">
+    <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-4 pb-3 pt-3">
       <header className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
         <img src={logo.url} alt="Opit soittamaan!" className="h-12 w-12 shrink-0 sm:h-14 sm:w-14" />
         <div className="min-w-0">
@@ -271,7 +271,7 @@ function Viritin() {
             {/* Kaula + konna vierekkäin, keskitettynä */}
             <div className="flex items-center justify-center gap-2 sm:gap-8">
               <div className="flex items-center gap-1 sm:gap-2">
-                <div className="w-44 sm:w-56">
+                <div className="w-40 sm:w-56">
                   <UkuleleHead active={current} {...(manual ? { onSelect: goTo } : {})} />
                 </div>
                 <div className="flex w-14 flex-col items-center text-tuner-good sm:w-16">
@@ -283,11 +283,11 @@ function Viritin() {
                   </span>
                 </div>
               </div>
-              <img src={konna} alt={konnaAlt} className="h-32 w-auto sm:h-56" />
+              <img src={konna} alt={konnaAlt} className="h-28 w-auto sm:h-56" />
             </div>
 
             {/* Ohje ja sävelkirjain mittarin yläkulmissa */}
-            <div className="mx-auto w-full max-w-[19rem] sm:max-w-sm">
+            <div className="mx-auto w-full max-w-[17rem] sm:max-w-sm">
               <div className="flex items-end justify-between gap-2 px-1">
                 <p className="text-base font-bold text-foreground sm:text-lg">
                   Soita {current}-kieltä
