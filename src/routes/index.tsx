@@ -10,6 +10,7 @@ import konnaKorvat from "@/assets/konna-korvat.png.asset.json";
 import konnaTuumii from "@/assets/konna-lahella.png.asset.json";
 import konnaPeukku from "@/assets/konna-peukku.png.asset.json";
 import konnaNeutraali from "@/assets/konna-neutraali.png.asset.json";
+import kansikuva from "@/assets/kansikuva.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -201,7 +202,11 @@ function Viritin() {
             </p>
             <h2 className="text-3xl font-extrabold text-primary">Ukuleleviritin</h2>
             <p className="mt-2 text-lg text-muted-foreground">Ukulele vireeseen helposti!</p>
-            <img src={konnaNeutraali.url} alt="" className="mx-auto my-4 h-40" />
+            <img
+              src={kansikuva.url}
+              alt="Konna ukulele kädessään"
+              className="mx-auto my-4 h-52 w-auto sm:h-64"
+            />
             <button type="button" className="btn-big w-full" onClick={() => beginTuning(false)}>
               ALOITA VIRITYS
             </button>
