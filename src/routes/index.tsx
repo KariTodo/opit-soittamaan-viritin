@@ -135,6 +135,7 @@ function Viritin() {
             : "Ylävire – löysää kieltä vähän";
 
   const absCents = cents === null ? null : Math.abs(cents);
+  const showDirection = cents !== null && !locked && state !== "intune";
   const konna =
     locked || (absCents !== null && absCents < 5)
       ? konnaPeukku.url
@@ -170,14 +171,30 @@ function Viritin() {
           </a>
         </div>
         <div className="flex shrink-0 flex-col items-stretch gap-1.5">
-          <button
-            type="button"
-            onClick={() => setMuted((m) => !m)}
-            className="btn-soft !px-4 !py-1.5 text-sm"
-            aria-pressed={muted}
-          >
-            {muted ? "🔇 Äänet pois" : "🔊 Äänet"}
-          </button>
+          <div className="flex items-center justify-end gap-1.5">
+            <button
+              type="button"
+              onClick={() => setMuted((m) => !m)}
+              className="btn-soft !px-4 !py-1.5 text-sm"
+              aria-pressed={muted}
+            >
+              {muted ? "🔇 Äänet pois" : "🔊 Äänet"}
+            </button>
+            {phase !== "start" && (
+              <button
+                type="button"
+                className="btn-soft !px-4 !py-1.5 text-sm"
+                onClick={() => {
+                  setPhase("start");
+                  setLocked(false);
+                  setTuned([]);
+                  setCurrent("G");
+                }}
+              >
+                Alkuun
+              </button>
+            )}
+          </div>
           {phase === "tuning" && (
             <button
               type="button"
@@ -282,16 +299,22 @@ function Viritin() {
                 <div className="w-40 sm:w-56">
                   <UkuleleHead active={current} {...(manual ? { onSelect: goTo } : {})} />
                 </div>
-                {cents !== null && !locked && state !== "intune" && (
-                  <div className="flex w-14 flex-col items-center text-tuner-good sm:w-16">
-                    <span aria-hidden="true" className="text-2xl leading-none sm:text-3xl">
-                      {cents < 0 ? "↑" : "↓"}
-                    </span>
-                    <span className="text-center text-[10px] font-bold leading-tight sm:text-xs">
-                      {cents < 0 ? "kiristä kieltä" : "löystä kieltä"}
-                    </span>
-                  </div>
-                )}
+                <div
+                  className={`flex w-16 shrink-0 flex-col items-center sm:w-20 ${
+                    showDirection ? "text-tuner-good" : "text-muted-foreground"
+                  }`}
+                >
+                  <span aria-hidden="true" className="text-2xl leading-none sm:text-3xl">
+                    {showDirection ? (cents! < 0 ? "↑" : "↓") : "↕"}
+                  </span>
+                  <span className="text-center text-[10px] font-bold leading-tight sm:text-xs">
+                    {showDirection
+                      ? cents! < 0
+                        ? "kiristä kieltä"
+                        : "löystä kieltä"
+                      : "Soita kieltä mikrofonin lähellä."}
+                  </span>
+                </div>
               </div>
               <img src={konna} alt={konnaAlt} className="h-28 w-auto sm:h-56" />
             </div>
