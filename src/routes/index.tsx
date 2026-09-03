@@ -155,10 +155,14 @@ function Viritin() {
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-4 pb-3 pt-3">
-      <header className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
-        <img src={logo.url} alt="Opit soittamaan!" className="h-12 w-12 shrink-0 sm:h-14 sm:w-14" />
-        <div className="min-w-0">
-          <h1 className="truncate text-xl font-extrabold text-primary sm:text-2xl">
+      <header className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-2 sm:items-center sm:gap-3">
+        <img
+          src={logo.url}
+          alt="Opit soittamaan!"
+          className="h-10 w-10 shrink-0 sm:h-14 sm:w-14"
+        />
+        <div className="min-w-0 self-center">
+          <h1 className="truncate text-lg font-extrabold text-primary sm:text-2xl">
             Ukuleleviritin
           </h1>
           <a
@@ -170,12 +174,12 @@ function Viritin() {
             www.opitsoittamaan.fi
           </a>
         </div>
-        <div className="flex shrink-0 flex-col items-stretch gap-1.5">
-          <div className="flex items-center justify-end gap-1.5">
+        <div className="flex shrink-0 flex-col items-stretch gap-1.5 self-start">
+          <div className="flex flex-col items-stretch gap-1 sm:flex-row sm:items-center sm:justify-end">
             <button
               type="button"
               onClick={() => setMuted((m) => !m)}
-              className="btn-soft !px-4 !py-1.5 text-sm"
+              className="btn-soft whitespace-nowrap !px-2.5 !py-1 text-xs sm:!px-3 sm:text-sm"
               aria-pressed={muted}
             >
               {muted ? "🔇 Äänet pois" : "🔊 Äänet"}
@@ -183,7 +187,7 @@ function Viritin() {
             {phase !== "start" && (
               <button
                 type="button"
-                className="btn-soft !px-4 !py-1.5 text-sm"
+                className="btn-soft whitespace-nowrap !px-2.5 !py-1 text-xs sm:!px-3 sm:text-sm"
                 onClick={() => {
                   setPhase("start");
                   setLocked(false);
@@ -195,18 +199,6 @@ function Viritin() {
               </button>
             )}
           </div>
-          {phase === "tuning" && (
-            <button
-              type="button"
-              className="btn-soft !px-4 !py-1.5 text-xs"
-              onClick={() => {
-                setManual((m) => !m);
-                setLocked(false);
-              }}
-            >
-              {manual ? "Automaattinen viritys" : "Valitse kieli itse"}
-            </button>
-          )}
         </div>
       </header>
 
