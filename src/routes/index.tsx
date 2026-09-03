@@ -171,14 +171,30 @@ function Viritin() {
           </a>
         </div>
         <div className="flex shrink-0 flex-col items-stretch gap-1.5">
-          <button
-            type="button"
-            onClick={() => setMuted((m) => !m)}
-            className="btn-soft !px-4 !py-1.5 text-sm"
-            aria-pressed={muted}
-          >
-            {muted ? "🔇 Äänet pois" : "🔊 Äänet"}
-          </button>
+          <div className="flex items-center justify-end gap-1.5">
+            <button
+              type="button"
+              onClick={() => setMuted((m) => !m)}
+              className="btn-soft !px-4 !py-1.5 text-sm"
+              aria-pressed={muted}
+            >
+              {muted ? "🔇 Äänet pois" : "🔊 Äänet"}
+            </button>
+            {phase !== "start" && (
+              <button
+                type="button"
+                className="btn-soft !px-4 !py-1.5 text-sm"
+                onClick={() => {
+                  setPhase("start");
+                  setLocked(false);
+                  setTuned([]);
+                  setCurrent("G");
+                }}
+              >
+                Alkuun
+              </button>
+            )}
+          </div>
           {phase === "tuning" && (
             <button
               type="button"
