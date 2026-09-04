@@ -44,6 +44,7 @@ function Viritin() {
   const [tuned, setTuned] = useState<StringName[]>([]);
   const [locked, setLocked] = useState(false);
   const [muted, setMuted] = useState(false);
+  const [hasHeard, setHasHeard] = useState(false);
   const holdRef = useRef<number | null>(null);
 
   const target = freqOf(current);
@@ -86,6 +87,12 @@ function Viritin() {
     };
   }, []);
 
+  useEffect(() => {
+    if (phase === "tuning" && reading.freq !== null && !hasHeard) {
+      setHasHeard(true);
+    }
+  }, [phase, reading.freq, hasHeard]);
+
   const goTo = useCallback((s: StringName) => {
     if (holdRef.current !== null) {
       window.clearTimeout(holdRef.current);
@@ -93,6 +100,7 @@ function Viritin() {
     }
     setCurrent(s);
     setLocked(false);
+    setHasHeard(false);
   }, []);
 
   const nextString = useCallback(() => {
@@ -117,6 +125,7 @@ function Viritin() {
         setTuned([]);
         setLocked(false);
         setCurrent("G");
+        setHasHeard(false);
         setPhase("tuning");
       }
     },
@@ -127,7 +136,9 @@ function Viritin() {
     state === "intune"
       ? "Vireessä!"
       : state === "unknown"
-        ? "Soita kieli uudelleen"
+        ? hasHeard
+          ? "Soita kieli uudelleen"
+          : "Soita kieltä mikrofonin lähellä."
         : state === "close"
           ? "Melkein oikein – säädä vähän"
           : cents !== null && cents < 0
@@ -203,7 +214,7 @@ function Viritin() {
       </header>
 
 
-      <div className="flex flex-1 flex-col items-center justify-center py-2">
+      <div className="flex flex-1 flex-col items-center justify-center py-1 sm:py-2">
         {phase === "start" && (
           <section className="card-soft w-full max-w-md p-7 text-center">
             <p className="text-sm font-bold uppercase tracking-wide text-muted-foreground">
@@ -262,7 +273,7 @@ function Viritin() {
         {phase === "tuning" && (
           <section className="w-full">
             {/* Vaihtoehtoinen ylänäkymä: ohje TAI onnistumispalaute + seuraava */}
-            <div className="mb-1 flex min-h-[2.5rem] flex-col items-center justify-center gap-1 text-center">
+            <div className="mb-0.5 flex min-h-[1.75rem] flex-col items-center justify-center gap-1 text-center sm:mb-1 sm:min-h-[2.5rem]">
               {locked ? (
                 <div className="flex flex-wrap items-center justify-center gap-3">
                   <p className="text-base font-extrabold text-tuner-good sm:text-lg">
@@ -286,7 +297,7 @@ function Viritin() {
             </div>
 
             {/* Kaula + konna vierekkäin, keskitettynä */}
-            <div className="flex items-center justify-center gap-2 sm:gap-8">
+            <div className="flex items-center justify-center gap-2 sm:gap-6">
               <div className="flex items-center gap-1 sm:gap-2">
                 <div className="w-40 sm:w-56">
                   <UkuleleHead active={current} {...(manual ? { onSelect: goTo } : {})} />
@@ -296,23 +307,64 @@ function Viritin() {
                     showDirection ? "text-tuner-good" : "text-muted-foreground"
                   }`}
                 >
-                  <span aria-hidden="true" className="text-2xl leading-none sm:text-3xl">
-                    {showDirection ? (cents! < 0 ? "↑" : "↓") : "↕"}
+                  <span
+                    aria-hidden="true"
+                    className="grid h-6 w-6 place-items-center sm:h-7 sm:w-7"
+                  >
+                    {showDirection ? (
+                      cents! < 0 ? (
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="h-full w-full"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M12 19V5M5 12l7-7 7 7" />
+                        </svg>
+                      ) : (
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="h-full w-full"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M12 5v14M5 12l7 7 7-7" />
+                        </svg>
+                      )
+                    ) : (
+                      <svg
+                        viewBox="0 0 24 24"
+                        className="h-full w-full"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M12 9v6M8 9l4-4 4 4M8 15l4 4 4-4" />
+                      </svg>
+                    )}
                   </span>
                   <span className="text-center text-[10px] font-bold leading-tight sm:text-xs">
                     {showDirection
                       ? cents! < 0
                         ? "kiristä kieltä"
                         : "löystä kieltä"
-                      : "Soita kieltä mikrofonin lähellä."}
+                      : "Soita kieltä"}
                   </span>
                 </div>
               </div>
-              <img src={konna} alt={konnaAlt} className="h-28 w-auto sm:h-56" />
+              <img src={konna} alt={konnaAlt} className="h-28 w-auto sm:h-44" />
             </div>
 
             {/* Ohje ja sävelkirjain mittarin yläkulmissa */}
-            <div className="mx-auto w-full max-w-[17rem] sm:max-w-sm">
+            <div className="mx-auto w-full max-w-[17rem] sm:max-w-xs">
               <div className="flex items-end justify-between gap-2 px-1">
                 <p className="text-base font-bold text-foreground sm:text-lg">
                   Soita {current}-kieltä
@@ -337,7 +389,7 @@ function Viritin() {
 
 
             {/* Palaute mittarin alla */}
-            <div className="mt-1 flex flex-col items-center text-center">
+            <div className="mt-0 flex flex-col items-center text-center sm:mt-1">
 
               <p
                 className="font-display text-lg font-extrabold sm:text-xl"
@@ -399,6 +451,21 @@ function Viritin() {
           </section>
         )}
       </div>
+
+      {phase === "tuning" && (
+        <div className="flex justify-end px-2 pb-1 sm:px-3">
+          <button
+            type="button"
+            className="btn-soft whitespace-nowrap !px-3 !py-1.5 text-xs sm:text-sm"
+            onClick={() => {
+              setManual((m) => !m);
+              setLocked(false);
+            }}
+          >
+            {manual ? "Automaattinen kielen valinta" : "Valitse kieli itse"}
+          </button>
+        </div>
+      )}
 
       <footer className="text-center text-[10px] leading-tight text-muted-foreground sm:text-xs">
         <p>
