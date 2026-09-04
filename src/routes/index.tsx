@@ -360,7 +360,7 @@ function Viritin() {
                   </span>
                 </div>
               </div>
-              <img src={konna} alt={konnaAlt} className="h-28 w-auto sm:h-56" />
+              <img src={konna} alt={konnaAlt} className="h-28 w-auto sm:h-44" />
             </div>
 
             {/* Ohje ja sävelkirjain mittarin yläkulmissa */}
