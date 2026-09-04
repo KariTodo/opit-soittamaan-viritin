@@ -125,6 +125,7 @@ function Viritin() {
         setTuned([]);
         setLocked(false);
         setCurrent("G");
+        setHasHeard(false);
         setPhase("tuning");
       }
     },
