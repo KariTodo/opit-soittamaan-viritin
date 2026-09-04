@@ -273,7 +273,7 @@ function Viritin() {
         {phase === "tuning" && (
           <section className="w-full">
             {/* Vaihtoehtoinen ylänäkymä: ohje TAI onnistumispalaute + seuraava */}
-            <div className="mb-1 flex min-h-[2.5rem] flex-col items-center justify-center gap-1 text-center">
+            <div className="mb-0.5 flex min-h-[1.75rem] flex-col items-center justify-center gap-1 text-center sm:mb-1 sm:min-h-[2.5rem]">
               {locked ? (
                 <div className="flex flex-wrap items-center justify-center gap-3">
                   <p className="text-base font-extrabold text-tuner-good sm:text-lg">
