@@ -87,6 +87,12 @@ function Viritin() {
     };
   }, []);
 
+  useEffect(() => {
+    if (phase === "tuning" && reading.freq !== null && !hasHeard) {
+      setHasHeard(true);
+    }
+  }, [phase, reading.freq, hasHeard]);
+
   const goTo = useCallback((s: StringName) => {
     if (holdRef.current !== null) {
       window.clearTimeout(holdRef.current);
@@ -94,6 +100,7 @@ function Viritin() {
     }
     setCurrent(s);
     setLocked(false);
+    setHasHeard(false);
   }, []);
 
   const nextString = useCallback(() => {
