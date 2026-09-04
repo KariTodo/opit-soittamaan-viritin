@@ -364,7 +364,7 @@ function Viritin() {
             </div>
 
             {/* Ohje ja sävelkirjain mittarin yläkulmissa */}
-            <div className="mx-auto w-full max-w-[17rem] sm:max-w-sm">
+            <div className="mx-auto w-full max-w-[17rem] sm:max-w-xs">
               <div className="flex items-end justify-between gap-2 px-1">
                 <p className="text-base font-bold text-foreground sm:text-lg">
                   Soita {current}-kieltä
