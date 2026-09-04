@@ -136,7 +136,9 @@ function Viritin() {
     state === "intune"
       ? "Vireessä!"
       : state === "unknown"
-        ? "Soita kieli uudelleen"
+        ? hasHeard
+          ? "Soita kieli uudelleen"
+          : "Soita kieltä mikrofonin lähellä."
         : state === "close"
           ? "Melkein oikein – säädä vähän"
           : cents !== null && cents < 0
