@@ -296,15 +296,56 @@ function Viritin() {
                     showDirection ? "text-tuner-good" : "text-muted-foreground"
                   }`}
                 >
-                  <span aria-hidden="true" className="text-2xl leading-none sm:text-3xl">
-                    {showDirection ? (cents! < 0 ? "↑" : "↓") : "↕"}
+                  <span
+                    aria-hidden="true"
+                    className="grid h-6 w-6 place-items-center sm:h-7 sm:w-7"
+                  >
+                    {showDirection ? (
+                      cents! < 0 ? (
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="h-full w-full"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M12 19V5M5 12l7-7 7 7" />
+                        </svg>
+                      ) : (
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="h-full w-full"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M12 5v14M5 12l7 7 7-7" />
+                        </svg>
+                      )
+                    ) : (
+                      <svg
+                        viewBox="0 0 24 24"
+                        className="h-full w-full"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M12 9v6M8 9l4-4 4 4M8 15l4 4 4-4" />
+                      </svg>
+                    )}
                   </span>
                   <span className="text-center text-[10px] font-bold leading-tight sm:text-xs">
                     {showDirection
                       ? cents! < 0
                         ? "kiristä kieltä"
                         : "löystä kieltä"
-                      : "Soita kieltä mikrofonin lähellä."}
+                      : "Soita kieltä"}
                   </span>
                 </div>
               </div>
