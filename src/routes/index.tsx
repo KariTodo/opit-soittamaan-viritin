@@ -452,6 +452,21 @@ function Viritin() {
         )}
       </div>
 
+      {phase === "tuning" && (
+        <div className="flex justify-end px-2 pb-1 sm:px-3">
+          <button
+            type="button"
+            className="btn-soft whitespace-nowrap !px-3 !py-1.5 text-xs sm:text-sm"
+            onClick={() => {
+              setManual((m) => !m);
+              setLocked(false);
+            }}
+          >
+            {manual ? "Automaattinen kielen valinta" : "Valitse kieli itse"}
+          </button>
+        </div>
+      )}
+
       <footer className="text-center text-[10px] leading-tight text-muted-foreground sm:text-xs">
         <p>
           Mikrofonin ääntä käsitellään vain tällä laitteella. Ääntä ei tallenneta eikä lähetetä
