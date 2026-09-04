@@ -389,7 +389,7 @@ function Viritin() {
 
 
             {/* Palaute mittarin alla */}
-            <div className="mt-1 flex flex-col items-center text-center">
+            <div className="mt-0 flex flex-col items-center text-center sm:mt-1">
 
               <p
                 className="font-display text-lg font-extrabold sm:text-xl"
