@@ -214,7 +214,7 @@ function Viritin() {
       </header>
 
 
-      <div className="flex flex-1 flex-col items-center justify-center py-2">
+      <div className="flex flex-1 flex-col items-center justify-center py-1 sm:py-2">
         {phase === "start" && (
           <section className="card-soft w-full max-w-md p-7 text-center">
             <p className="text-sm font-bold uppercase tracking-wide text-muted-foreground">
