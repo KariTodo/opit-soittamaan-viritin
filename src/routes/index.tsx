@@ -297,7 +297,7 @@ function Viritin() {
             </div>
 
             {/* Kaula + konna vierekkäin, keskitettynä */}
-            <div className="flex items-center justify-center gap-2 sm:gap-8">
+            <div className="flex items-center justify-center gap-2 sm:gap-6">
               <div className="flex items-center gap-1 sm:gap-2">
                 <div className="w-40 sm:w-56">
                   <UkuleleHead active={current} {...(manual ? { onSelect: goTo } : {})} />
