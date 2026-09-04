@@ -44,6 +44,7 @@ function Viritin() {
   const [tuned, setTuned] = useState<StringName[]>([]);
   const [locked, setLocked] = useState(false);
   const [muted, setMuted] = useState(false);
+  const [hasHeard, setHasHeard] = useState(false);
   const holdRef = useRef<number | null>(null);
 
   const target = freqOf(current);
