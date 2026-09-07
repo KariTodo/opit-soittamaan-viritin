@@ -338,7 +338,7 @@ export function TunerScreen({ instrument }: { instrument: Instrument }) {
                   </span>
                 </div>
               </div>
-              <img src={konna} alt={konnaAlt} className="h-28 w-auto sm:h-40" />
+              <img src={konna} alt={konnaAlt} className="h-28 w-auto sm:h-36" />
             </div>
 
             <div className="mx-auto w-full max-w-[17rem] sm:max-w-[18rem]">
