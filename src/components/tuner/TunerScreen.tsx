@@ -431,7 +431,7 @@ export function TunerScreen({ instrument }: { instrument: Instrument }) {
       </div>
 
       {phase === "tuning" && (
-        <div className="mb-1 flex justify-end px-2 pb-0 sm:mb-2 sm:px-3">
+        <div className="mb-1 flex justify-end px-2 pb-0 sm:mb-1 sm:px-3">
           <button
             type="button"
             className="btn-soft max-w-[11rem] whitespace-normal leading-tight !px-4 !py-2.5 text-sm font-extrabold shadow-md ring-1 ring-primary/20 sm:max-w-none sm:whitespace-nowrap sm:text-base"
