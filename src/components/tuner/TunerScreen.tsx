@@ -156,7 +156,7 @@ export function TunerScreen({ instrument }: { instrument: Instrument }) {
         <img
           src={logo.url}
           alt="Opit soittamaan!"
-          className="h-10 w-10 shrink-0 sm:h-14 sm:w-14"
+          className="h-10 w-10 shrink-0 sm:h-12 sm:w-12"
         />
         <div className="min-w-0 self-center">
           <h1 className="truncate text-lg font-extrabold text-primary sm:text-2xl">
