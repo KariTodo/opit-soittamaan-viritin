@@ -151,7 +151,7 @@ export function TunerScreen({ instrument }: { instrument: Instrument }) {
   const order = instrument.strings.map((s) => s.label).join(" – ");
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-4 pb-2 pt-2 sm:pb-3 sm:pt-3">
+    <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-4 pb-2 pt-2 sm:pb-2 sm:pt-2">
       <header className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-2 sm:items-center sm:gap-3">
         <img
           src={logo.url}
