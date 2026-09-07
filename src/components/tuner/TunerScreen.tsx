@@ -341,7 +341,7 @@ export function TunerScreen({ instrument }: { instrument: Instrument }) {
               <img src={konna} alt={konnaAlt} className="h-28 w-auto sm:h-40" />
             </div>
 
-            <div className="mx-auto w-full max-w-[17rem] sm:max-w-xs">
+            <div className="mx-auto w-full max-w-[17rem] sm:max-w-[18rem]">
               <div className="flex items-end justify-between gap-2 px-1">
                 <p className="text-base font-bold text-foreground sm:text-lg">
                   Soita {label}-kieltä
