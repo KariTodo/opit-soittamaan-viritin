@@ -273,7 +273,7 @@ export function TunerScreen({ instrument }: { instrument: Instrument }) {
 
             <div className="flex items-center justify-center gap-2 sm:gap-4">
               <div className="flex items-center gap-1 sm:gap-2">
-                <div className="w-40 sm:w-52">
+                <div className="w-40 sm:w-48">
                   <HeadStock
                     instrument={instrument}
                     active={current}
