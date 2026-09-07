@@ -151,12 +151,12 @@ export function TunerScreen({ instrument }: { instrument: Instrument }) {
   const order = instrument.strings.map((s) => s.label).join(" – ");
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-4 pb-3 pt-3">
+    <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-4 pb-2 pt-2 sm:pb-2 sm:pt-2">
       <header className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-2 sm:items-center sm:gap-3">
         <img
           src={logo.url}
           alt="Opit soittamaan!"
-          className="h-10 w-10 shrink-0 sm:h-14 sm:w-14"
+          className="h-10 w-10 shrink-0 sm:h-12 sm:w-12"
         />
         <div className="min-w-0 self-center">
           <h1 className="truncate text-lg font-extrabold text-primary sm:text-2xl">
@@ -248,7 +248,7 @@ export function TunerScreen({ instrument }: { instrument: Instrument }) {
 
         {phase === "tuning" && (
           <section className="w-full">
-            <div className="mb-0.5 flex min-h-[1.75rem] flex-col items-center justify-center gap-1 text-center sm:mb-1 sm:min-h-[2.5rem]">
+            <div className="mb-0 flex min-h-[1.75rem] flex-col items-center justify-center gap-1 text-center sm:min-h-[1.75rem]">
               {locked ? (
                 <div className="flex flex-wrap items-center justify-center gap-3">
                   <p className="text-base font-extrabold text-tuner-good sm:text-lg">
@@ -271,9 +271,9 @@ export function TunerScreen({ instrument }: { instrument: Instrument }) {
               )}
             </div>
 
-            <div className="flex items-center justify-center gap-2 sm:gap-6">
+            <div className="flex items-center justify-center gap-2 sm:gap-4">
               <div className="flex items-center gap-1 sm:gap-2">
-                <div className="w-40 sm:w-56">
+                <div className="w-40 sm:w-48">
                   <HeadStock
                     instrument={instrument}
                     active={current}
@@ -338,10 +338,10 @@ export function TunerScreen({ instrument }: { instrument: Instrument }) {
                   </span>
                 </div>
               </div>
-              <img src={konna} alt={konnaAlt} className="h-28 w-auto sm:h-44" />
+              <img src={konna} alt={konnaAlt} className="h-28 w-auto sm:h-36" />
             </div>
 
-            <div className="mx-auto w-full max-w-[17rem] sm:max-w-xs">
+            <div className="mx-auto w-full max-w-[17rem]">
               <div className="flex items-end justify-between gap-2 px-1">
                 <p className="text-base font-bold text-foreground sm:text-lg">
                   Soita {label}-kieltä
@@ -364,7 +364,7 @@ export function TunerScreen({ instrument }: { instrument: Instrument }) {
               </div>
             </div>
 
-            <div className="mt-0 flex flex-col items-center text-center sm:mt-1">
+            <div className="mt-0 flex flex-col items-center text-center">
               <p
                 className="font-display text-lg font-extrabold sm:text-xl"
                 style={{
@@ -431,10 +431,10 @@ export function TunerScreen({ instrument }: { instrument: Instrument }) {
       </div>
 
       {phase === "tuning" && (
-        <div className="flex justify-end px-2 pb-1 sm:px-3">
+        <div className="mb-1 flex justify-end px-2 pb-0 sm:mb-1 sm:px-3">
           <button
             type="button"
-            className="btn-soft whitespace-nowrap !px-3 !py-1.5 text-xs sm:text-sm"
+            className="btn-soft max-w-[11rem] whitespace-normal leading-tight !px-4 !py-2.5 text-sm font-extrabold shadow-md ring-1 ring-primary/20 sm:max-w-none sm:whitespace-nowrap sm:text-base"
             onClick={() => {
               setManual((m) => !m);
               setLocked(false);
