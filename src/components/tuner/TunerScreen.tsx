@@ -248,7 +248,7 @@ export function TunerScreen({ instrument }: { instrument: Instrument }) {
 
         {phase === "tuning" && (
           <section className="w-full">
-            <div className="mb-0.5 flex min-h-[1.75rem] flex-col items-center justify-center gap-1 text-center sm:mb-1 sm:min-h-[2.5rem]">
+            <div className="mb-0 flex min-h-[1.75rem] flex-col items-center justify-center gap-1 text-center sm:min-h-[1.75rem]">
               {locked ? (
                 <div className="flex flex-wrap items-center justify-center gap-3">
                   <p className="text-base font-extrabold text-tuner-good sm:text-lg">
