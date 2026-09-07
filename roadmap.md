@@ -6,3 +6,7 @@
 - [x] Stack header buttons (Äänet / Alkuun) vertically on mobile so they don't overlap the title
 - [x] Move the manual/auto toggle button to the bottom-right corner, also in tuning view
 - [x] Show "Soita kieli uudelleen" only after the string has been played once
+- [x] Change manual hint text to "Valitse kieli klikkaamalla kielen kirjainta"
+- [x] New front page: instrument picker (Ukulele, Kitara, Basso, Kannel)
+- [x] Guitar tuner at /kitara with E A D G H E and guitar headstock image
+- [ ] Add Basso and Kannel tuners when frog images arrive

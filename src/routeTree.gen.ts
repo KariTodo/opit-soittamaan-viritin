@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as KitaraRouteImport } from './routes/kitara'
+import { Route as UkuleleRouteImport } from './routes/ukulele'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KitaraRoute = KitaraRouteImport.update({
+  id: '/kitara',
+  path: '/kitara',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UkuleleRoute = UkuleleRouteImport.update({
+  id: '/ukulele',
+  path: '/ukulele',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/kitara': typeof KitaraRoute
+  '/ukulele': typeof UkuleleRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/kitara': typeof KitaraRoute
+  '/ukulele': typeof UkuleleRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/kitara': typeof KitaraRoute
+  '/ukulele': typeof UkuleleRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/kitara' | '/ukulele'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/kitara' | '/ukulele'
+  id: '__root__' | '/' | '/kitara' | '/ukulele'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  KitaraRoute: typeof KitaraRoute
+  UkuleleRoute: typeof UkuleleRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/kitara': {
+      id: '/kitara'
+      path: '/kitara'
+      fullPath: '/kitara'
+      preLoaderRoute: typeof KitaraRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ukulele': {
+      id: '/ukulele'
+      path: '/ukulele'
+      fullPath: '/ukulele'
+      preLoaderRoute: typeof UkuleleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  KitaraRoute: KitaraRoute,
+  UkuleleRoute: UkuleleRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

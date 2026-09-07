@@ -11,7 +11,7 @@ export function detectPitch(
   const rms = Math.sqrt(sumSq / size);
   if (rms < 0.008) return null;
 
-  const minFreq = 120; // below C4 with margin
+  const minFreq = 70; // below guitar low E (82.4 Hz) with margin
   const maxFreq = 700; // above A4 with margin
   const minLag = Math.floor(sampleRate / maxFreq);
   const maxLag = Math.min(Math.floor(sampleRate / minFreq), Math.floor(size / 2));
