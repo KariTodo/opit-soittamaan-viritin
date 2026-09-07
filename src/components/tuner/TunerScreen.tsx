@@ -364,7 +364,7 @@ export function TunerScreen({ instrument }: { instrument: Instrument }) {
               </div>
             </div>
 
-            <div className="mt-0 flex flex-col items-center text-center sm:mt-1">
+            <div className="mt-0 flex flex-col items-center text-center">
               <p
                 className="font-display text-lg font-extrabold sm:text-xl"
                 style={{
