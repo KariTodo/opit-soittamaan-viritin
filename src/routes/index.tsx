@@ -24,8 +24,7 @@ export const Route = createFileRoute("/")({
   component: Etusivu,
 });
 
-const READY = [UKULELE, KITARA, BASSO];
-const COMING = [{ name: "Kannel", slug: "kannel" }];
+const READY = [UKULELE, KITARA, BASSO, KANNEL];
 
 function Etusivu() {
   return (

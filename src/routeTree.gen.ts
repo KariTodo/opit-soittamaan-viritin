@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BassoRouteImport } from './routes/basso'
+import { Route as KannelRouteImport } from './routes/kannel'
 import { Route as KitaraRouteImport } from './routes/kitara'
 import { Route as UkuleleRouteImport } from './routes/ukulele'
 
@@ -22,6 +23,11 @@ const IndexRoute = IndexRouteImport.update({
 const BassoRoute = BassoRouteImport.update({
   id: '/basso',
   path: '/basso',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KannelRoute = KannelRouteImport.update({
+  id: '/kannel',
+  path: '/kannel',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KitaraRoute = KitaraRouteImport.update({
@@ -38,12 +44,14 @@ const UkuleleRoute = UkuleleRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/basso': typeof BassoRoute
+  '/kannel': typeof KannelRoute
   '/kitara': typeof KitaraRoute
   '/ukulele': typeof UkuleleRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/basso': typeof BassoRoute
+  '/kannel': typeof KannelRoute
   '/kitara': typeof KitaraRoute
   '/ukulele': typeof UkuleleRoute
 }
@@ -51,20 +59,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/basso': typeof BassoRoute
+  '/kannel': typeof KannelRoute
   '/kitara': typeof KitaraRoute
   '/ukulele': typeof UkuleleRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/basso' | '/kitara' | '/ukulele'
+  fullPaths: '/' | '/basso' | '/kannel' | '/kitara' | '/ukulele'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/basso' | '/kitara' | '/ukulele'
-  id: '__root__' | '/' | '/basso' | '/kitara' | '/ukulele'
+  to: '/' | '/basso' | '/kannel' | '/kitara' | '/ukulele'
+  id: '__root__' | '/' | '/basso' | '/kannel' | '/kitara' | '/ukulele'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BassoRoute: typeof BassoRoute
+  KannelRoute: typeof KannelRoute
   KitaraRoute: typeof KitaraRoute
   UkuleleRoute: typeof UkuleleRoute
 }
@@ -83,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/basso'
       fullPath: '/basso'
       preLoaderRoute: typeof BassoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kannel': {
+      id: '/kannel'
+      path: '/kannel'
+      fullPath: '/kannel'
+      preLoaderRoute: typeof KannelRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kitara': {
@@ -105,6 +122,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BassoRoute: BassoRoute,
+  KannelRoute: KannelRoute,
   KitaraRoute: KitaraRoute,
   UkuleleRoute: UkuleleRoute,
 }

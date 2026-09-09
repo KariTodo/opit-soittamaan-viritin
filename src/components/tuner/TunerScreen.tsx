@@ -14,7 +14,13 @@ import konnaNeutraali from "@/assets/konna-neutraali.png.asset.json";
 type Phase = "start" | "mic" | "tuning" | "done";
 type TuneState = "off" | "close" | "intune" | "unknown";
 
-export function TunerScreen({ instrument }: { instrument: Instrument }) {
+export function TunerScreen({
+  instrument,
+  extra,
+}: {
+  instrument: Instrument;
+  extra?: React.ReactNode;
+}) {
   const { micStatus, reading, start, playSuccess, pauseFor } = useTuner();
   const firstId = instrument.strings[0]!.id;
   const [phase, setPhase] = useState<Phase>("start");
@@ -190,6 +196,8 @@ export function TunerScreen({ instrument }: { instrument: Instrument }) {
           </div>
         </div>
       </header>
+
+      {extra}
 
       <div className="flex flex-1 flex-col items-center justify-center py-1 sm:py-2">
         {phase === "start" && (
