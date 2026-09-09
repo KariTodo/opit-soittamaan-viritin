@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { KITARA, UKULELE } from "@/lib/instruments";
+import { BASSO, KITARA, UKULELE } from "@/lib/instruments";
 import logo from "@/assets/logo.png.asset.json";
-import konnaNeutraali from "@/assets/konna-neutraali.png.asset.json";
+import kannelKonna from "@/assets/kannel-konna.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
