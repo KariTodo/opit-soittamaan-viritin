@@ -9,4 +9,5 @@
 - [x] Change manual hint text to "Valitse kieli klikkaamalla kielen kirjainta"
 - [x] New front page: instrument picker (Ukulele, Kitara, Basso, Kannel)
 - [x] Guitar tuner at /kitara with E A D G H E and guitar headstock image
-- [ ] Add Basso and Kannel tuners when frog images arrive
+- [x] Basso tuner at /basso with E A D G
+- [ ] Add Kannel tuner when its images arrive
