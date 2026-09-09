@@ -4,6 +4,8 @@ import kansikuva from "@/assets/kansikuva.png.asset.json";
 import kitaraKonna from "@/assets/kitara-konna.png.asset.json";
 import bassoKaula from "@/assets/basso-kaula.png.asset.json";
 import bassoKonna from "@/assets/basso-konna.png.asset.json";
+import kannelKaula from "@/assets/kannel-kaula.png.asset.json";
+import kannelKonna from "@/assets/kannel-konna.png.asset.json";
 
 export type TunerString = {
   /** Unique id (two strings can share a label, e.g. guitar E) */
