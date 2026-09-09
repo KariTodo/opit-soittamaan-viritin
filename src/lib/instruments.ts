@@ -2,6 +2,8 @@ import ukeNeck from "@/assets/uke-neck-short.png";
 import kitaraKaula from "@/assets/kitara-kaula.png.asset.json";
 import kansikuva from "@/assets/kansikuva.png.asset.json";
 import kitaraKonna from "@/assets/kitara-konna.png.asset.json";
+import bassoKaula from "@/assets/basso-kaula.png.asset.json";
+import bassoKonna from "@/assets/basso-konna.png.asset.json";
 
 export type TunerString = {
   /** Unique id (two strings can share a label, e.g. guitar E) */
@@ -123,3 +125,42 @@ export const KITARA: Instrument = {
 export function stringOf(instrument: Instrument, id: string) {
   return instrument.strings.find((s) => s.id === id) ?? instrument.strings[0]!;
 }
+
+export const BASSO: Instrument = {
+  slug: "basso",
+  name: "Basso",
+  title: "Bassoviritin",
+  neck: bassoKaula.url,
+  cover: bassoKonna.url,
+  pegSize: 15,
+  strings: [
+    {
+      id: "E1",
+      label: "E",
+      freq: 41.2,
+      peg: { x: 41.9, y: 51.6 },
+      path: "M 41.9 51.6 L 41.7 67.4 L 41.7 100",
+    },
+    {
+      id: "A1",
+      label: "A",
+      freq: 55.0,
+      peg: { x: 45.9, y: 38.5 },
+      path: "M 45.9 38.5 L 47.5 67.4 L 47.5 100",
+    },
+    {
+      id: "D2",
+      label: "D",
+      freq: 73.42,
+      peg: { x: 50.5, y: 24.7 },
+      path: "M 50.5 24.7 L 53.3 67.4 L 53.3 100",
+    },
+    {
+      id: "G2",
+      label: "G",
+      freq: 98.0,
+      peg: { x: 54.2, y: 12.2 },
+      path: "M 54.2 12.2 L 59.1 67.4 L 59.1 100",
+    },
+  ],
+};

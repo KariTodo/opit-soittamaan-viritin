@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { KITARA, UKULELE } from "@/lib/instruments";
+import { BASSO, KITARA, UKULELE } from "@/lib/instruments";
 import logo from "@/assets/logo.png.asset.json";
-import konnaNeutraali from "@/assets/konna-neutraali.png.asset.json";
+import kannelKonna from "@/assets/kannel-konna.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -24,11 +24,8 @@ export const Route = createFileRoute("/")({
   component: Etusivu,
 });
 
-const READY = [UKULELE, KITARA];
-const COMING = [
-  { name: "Basso", slug: "basso" },
-  { name: "Kannel", slug: "kannel" },
-];
+const READY = [UKULELE, KITARA, BASSO];
+const COMING = [{ name: "Kannel", slug: "kannel" }];
 
 function Etusivu() {
   return (
@@ -58,7 +55,7 @@ function Etusivu() {
           {READY.map((i) => (
             <Link
               key={i.slug}
-              to={i.slug === "ukulele" ? "/ukulele" : "/kitara"}
+              to={i.slug === "ukulele" ? "/ukulele" : i.slug === "kitara" ? "/kitara" : "/basso"}
               className="card-soft flex flex-col items-center gap-2 p-3 transition-transform hover:scale-[1.03] sm:p-4"
             >
               <img
@@ -77,8 +74,8 @@ function Etusivu() {
               className="card-soft flex flex-col items-center gap-2 p-3 opacity-60 sm:p-4"
             >
               <img
-                src={konnaNeutraali.url}
-                alt="Konna odottaa rauhallisena"
+                src={kannelKonna.url}
+                alt="Konna ja kannel"
                 className="h-32 w-auto object-contain sm:h-44"
               />
               <span className="font-display text-lg font-extrabold text-primary sm:text-xl">

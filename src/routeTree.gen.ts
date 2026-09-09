@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BassoRouteImport } from './routes/basso'
 import { Route as KitaraRouteImport } from './routes/kitara'
 import { Route as UkuleleRouteImport } from './routes/ukulele'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BassoRoute = BassoRouteImport.update({
+  id: '/basso',
+  path: '/basso',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KitaraRoute = KitaraRouteImport.update({
@@ -31,30 +37,34 @@ const UkuleleRoute = UkuleleRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/basso': typeof BassoRoute
   '/kitara': typeof KitaraRoute
   '/ukulele': typeof UkuleleRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/basso': typeof BassoRoute
   '/kitara': typeof KitaraRoute
   '/ukulele': typeof UkuleleRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/basso': typeof BassoRoute
   '/kitara': typeof KitaraRoute
   '/ukulele': typeof UkuleleRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/kitara' | '/ukulele'
+  fullPaths: '/' | '/basso' | '/kitara' | '/ukulele'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/kitara' | '/ukulele'
-  id: '__root__' | '/' | '/kitara' | '/ukulele'
+  to: '/' | '/basso' | '/kitara' | '/ukulele'
+  id: '__root__' | '/' | '/basso' | '/kitara' | '/ukulele'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BassoRoute: typeof BassoRoute
   KitaraRoute: typeof KitaraRoute
   UkuleleRoute: typeof UkuleleRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/basso': {
+      id: '/basso'
+      path: '/basso'
+      fullPath: '/basso'
+      preLoaderRoute: typeof BassoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kitara': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BassoRoute: BassoRoute,
   KitaraRoute: KitaraRoute,
   UkuleleRoute: UkuleleRoute,
 }
