@@ -166,3 +166,54 @@ export const BASSO: Instrument = {
     },
   ],
 };
+
+/** Kanteleen kielet pisimmästä lyhimpään: D4, E4, F#4 (mollivireessä F4), G4, A4 */
+export function kannel(minor: boolean): Instrument {
+  return {
+    slug: "kannel",
+    name: "Kannel",
+    title: "Kanteleviritin",
+    neck: kannelKaula.url,
+    cover: kannelKonna.url,
+    pegSize: 15,
+    strings: [
+      {
+        id: "D4",
+        label: "D",
+        freq: 293.66,
+        peg: { x: 70.8, y: 26.2 },
+        path: "M 70.8 26.2 L 70.4 40 L 70.4 100",
+      },
+      {
+        id: "E4",
+        label: "E",
+        freq: 329.63,
+        peg: { x: 60.4, y: 35.8 },
+        path: "M 60.4 35.8 L 60.2 48 L 60.2 100",
+      },
+      {
+        id: "F4",
+        label: minor ? "F" : "F#",
+        freq: minor ? 349.23 : 369.99,
+        peg: { x: 50.5, y: 45.3 },
+        path: "M 50.5 45.3 L 50.0 57 L 50.0 100",
+      },
+      {
+        id: "G4",
+        label: "G",
+        freq: 392.0,
+        peg: { x: 41.1, y: 54.7 },
+        path: "M 41.1 54.7 L 40.3 66 L 40.3 100",
+      },
+      {
+        id: "A4",
+        label: "A",
+        freq: 440.0,
+        peg: { x: 31.0, y: 64.0 },
+        path: "M 31.0 64.0 L 30.6 75 L 30.6 100",
+      },
+    ],
+  };
+}
+
+export const KANNEL: Instrument = kannel(false);
