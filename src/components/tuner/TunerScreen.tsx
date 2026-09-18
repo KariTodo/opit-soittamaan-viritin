@@ -5,11 +5,11 @@ import { HeadStock } from "@/components/tuner/HeadStock";
 import { useTuner } from "@/hooks/useTuner";
 import { centsBetween } from "@/lib/pitch";
 import type { Instrument } from "@/lib/instruments";
-import logo from "@/assets/logo.png.asset.json";
-import konnaKorvat from "@/assets/konna-korvat.png.asset.json";
-import konnaTuumii from "@/assets/konna-lahella.png.asset.json";
-import konnaPeukku from "@/assets/konna-peukku.png.asset.json";
-import konnaNeutraali from "@/assets/konna-neutraali.png.asset.json";
+import logo from "@/assets/logo.png";
+import konnaKorvat from "@/assets/konna-korvat.png";
+import konnaTuumii from "@/assets/konna-lahella.png";
+import konnaPeukku from "@/assets/konna-peukku.png";
+import konnaNeutraali from "@/assets/konna-neutraali.png";
 
 type Phase = "start" | "mic" | "tuning" | "done";
 type TuneState = "off" | "close" | "intune" | "unknown";
@@ -139,18 +139,18 @@ export function TunerScreen({
   const showDirection = cents !== null && !locked && state !== "intune";
   const konna =
     locked || (absCents !== null && absCents < 5)
-      ? konnaPeukku.url
+      ? konnaPeukku
       : absCents === null
-        ? konnaNeutraali.url
+        ? konnaNeutraali
         : absCents >= 33
-          ? konnaKorvat.url
-          : konnaTuumii.url;
+          ? konnaKorvat
+          : konnaTuumii;
   const konnaAlt =
-    konna === konnaPeukku.url
+    konna === konnaPeukku
       ? "Iloinen konna näyttää peukkua"
-      : konna === konnaTuumii.url
+      : konna === konnaTuumii
         ? "Konna näyttää sormillaan, että vire on lähellä"
-        : konna === konnaKorvat.url
+        : konna === konnaKorvat
           ? "Konna pitää käsiä korvillaan"
           : "Konna odottaa rauhallisena";
 
@@ -160,7 +160,7 @@ export function TunerScreen({
     <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-4 pb-2 pt-2 sm:pb-2 sm:pt-2">
       <header className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-2 sm:items-center sm:gap-3">
         <img
-          src={logo.url}
+          src={logo}
           alt="Opit soittamaan!"
           className="h-10 w-10 shrink-0 sm:h-12 sm:w-12"
         />
@@ -226,7 +226,7 @@ export function TunerScreen({
 
         {phase === "mic" && (
           <section className="card-soft w-full max-w-md p-7 text-center">
-            <img src={konnaTuumii.url} alt="" className="mx-auto h-36" />
+            <img src={konnaTuumii} alt="" className="mx-auto h-36" />
             <h2 className="mt-2 text-2xl font-extrabold text-primary">
               Tarvitsen mikrofonin kuullakseni soittimesi.
             </h2>
@@ -398,7 +398,7 @@ export function TunerScreen({
         {phase === "done" && (
           <section className="card-soft w-full max-w-md p-7 text-center">
             <img
-              src={konnaPeukku.url}
+              src={konnaPeukku}
               alt="Iloinen konna näyttää peukkua"
               className="mx-auto h-44"
             />

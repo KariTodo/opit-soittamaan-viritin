@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BASSO, KANNEL, KITARA, UKULELE } from "@/lib/instruments";
-import logo from "@/assets/logo.png.asset.json";
+import logo from "@/assets/logo.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,7 +29,7 @@ function Etusivu() {
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-4 pb-6 pt-4">
       <header className="flex items-center gap-3">
-        <img src={logo.url} alt="Opit soittamaan!" className="h-12 w-12 sm:h-16 sm:w-16" />
+        <img src={logo} alt="Opit soittamaan!" className="h-12 w-12 sm:h-16 sm:w-16" />
         <div className="min-w-0">
           <h1 className="text-xl font-extrabold text-primary sm:text-3xl">
             Opit soittamaan! -viritysmittari

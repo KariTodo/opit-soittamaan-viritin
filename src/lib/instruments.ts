@@ -1,11 +1,11 @@
 import ukeNeck from "@/assets/uke-neck-short.png";
-import kitaraKaula from "@/assets/kitara-kaula.png.asset.json";
-import kansikuva from "@/assets/kansikuva.png.asset.json";
-import kitaraKonna from "@/assets/kitara-konna.png.asset.json";
-import bassoKaula from "@/assets/basso-kaula.png.asset.json";
-import bassoKonna from "@/assets/basso-konna.png.asset.json";
-import kannelKaula from "@/assets/kannel-kaula.png.asset.json";
-import kannelKonna from "@/assets/kannel-konna.png.asset.json";
+import kitaraKaula from "@/assets/kitara-kaula.png";
+import kansikuva from "@/assets/kansikuva.png";
+import kitaraKonna from "@/assets/kitara-konna.png";
+import bassoKaula from "@/assets/basso-kaula.png";
+import bassoKonna from "@/assets/basso-konna.png";
+import kannelKaula from "@/assets/kannel-kaula.png";
+import kannelKonna from "@/assets/kannel-konna.png";
 
 export type TunerString = {
   /** Unique id (two strings can share a label, e.g. guitar E) */
@@ -37,7 +37,7 @@ export const UKULELE: Instrument = {
   name: "Ukulele",
   title: "Ukuleleviritin",
   neck: ukeNeck,
-  cover: kansikuva.url,
+  cover: kansikuva,
   pegSize: 20,
   strings: [
     {
@@ -75,8 +75,8 @@ export const KITARA: Instrument = {
   slug: "kitara",
   name: "Kitara",
   title: "Kitaraviritin",
-  neck: kitaraKaula.url,
-  cover: kitaraKonna.url,
+  neck: kitaraKaula,
+  cover: kitaraKonna,
   pegSize: 16,
   strings: [
     {
@@ -132,8 +132,8 @@ export const BASSO: Instrument = {
   slug: "basso",
   name: "Basso",
   title: "Bassoviritin",
-  neck: bassoKaula.url,
-  cover: bassoKonna.url,
+  neck: bassoKaula,
+  cover: bassoKonna,
   pegSize: 15,
   strings: [
     {
@@ -173,8 +173,8 @@ export function kannel(minor: boolean): Instrument {
     slug: "kannel",
     name: "Kannel",
     title: "Kanteleviritin",
-    neck: kannelKaula.url,
-    cover: kannelKonna.url,
+    neck: kannelKaula,
+    cover: kannelKonna,
     pegSize: 15,
     strings: [
       {
