@@ -1,6 +1,6 @@
-# Ukulele Buddy Tuner
+# Opit soittamaan! -viritysmittari
 
-Lovable-prompti – Opit soittamaan! Ukuleleviritin
+Alkuperäinen tuotemäärittely – Opit soittamaan! viritysmittari
 
 Rakenna responsiivinen, selainpohjainen ukulelen viritysmittari, joka toimii erityisesti lapsille mahdollisimman helposti, mutta näyttää samalla siistiltä ja brändin mukaiselta. Sovellus tulee osaksi Opit soittamaan! -kokonaisuutta ja siihen linkitetään myös Todo Groupsin ukulelen soitto-oppaista.
 
@@ -14,7 +14,7 @@ Sovelluksen tulee toimia hyvin puhelimella, tabletilla ja tietokoneella, mutta s
 
 Toteuta sovellus niin, että se voidaan exportata itsenäiseksi www-sovellukseksi esimerkiksi osoitteeseen:
 
-https://www.opitsoittamaan.fi/viritin/
+https://app.opitsoittamaan.fi/viritin/
 
 Tärkeät periaatteet:
 
@@ -484,25 +484,12 @@ lapsi saa selkeän onnistumiskokemuksen.
 
 Lopputuloksen pitää tuntua siltä, että lapsi oikeasti uskaltaa käyttää sitä yksin.
 
-This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://opi-soittamaan-ukulele-viritin.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/63bafdc5-7c65-483b-be84-816f08a2a842).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
 ## Development
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Paikallinen kehitys Bunilla:
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+bun install
+bun run dev
+bun run build
 ```
