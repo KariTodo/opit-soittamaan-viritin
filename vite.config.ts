@@ -5,11 +5,19 @@ import tailwindcss from "@tailwindcss/vite";
 import { nitro } from "nitro/vite";
 
 export default defineConfig({
+  base: "/viritin/",
   resolve: {
     tsconfigPaths: true,
   },
   plugins: [
-    tanstackStart(),
+    tanstackStart({
+      prerender: {
+        enabled: true,
+        autoStaticPathsDiscovery: true,
+        crawlLinks: false,
+        failOnError: true,
+      },
+    }),
     nitro(),
     viteReact(),
     tailwindcss(),
