@@ -11,7 +11,7 @@ import konnaTuumii from "@/assets/konna-lahella.png";
 import konnaPeukku from "@/assets/konna-peukku.png";
 import konnaNeutraali from "@/assets/konna-neutraali.png";
 
-type Phase = "start" | "mic" | "tuning" | "done";
+type Phase = "mic" | "tuning" | "done";
 type TuneState = "off" | "close" | "intune" | "unknown";
 
 export function TunerScreen({
@@ -23,7 +23,7 @@ export function TunerScreen({
 }) {
   const { micStatus, reading, start, playSuccess, pauseFor } = useTuner();
   const firstId = instrument.strings[0]!.id;
-  const [phase, setPhase] = useState<Phase>("start");
+  const [phase, setPhase] = useState<Phase>("mic");
   const [manual, setManual] = useState(false);
   const [current, setCurrent] = useState<string>(firstId);
   const [tuned, setTuned] = useState<string[]>([]);
@@ -32,8 +32,7 @@ export function TunerScreen({
   const [hasHeard, setHasHeard] = useState(false);
   const holdRef = useRef<number | null>(null);
 
-  const currentString =
-    instrument.strings.find((s) => s.id === current) ?? instrument.strings[0]!;
+  const currentString = instrument.strings.find((s) => s.id === current) ?? instrument.strings[0]!;
   const target = currentString.freq;
   const label = currentString.label;
   const cents = reading.freq !== null ? centsBetween(reading.freq, target) : null;
@@ -159,11 +158,7 @@ export function TunerScreen({
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-4 pb-2 pt-2 sm:pb-2 sm:pt-2">
       <header className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-2 sm:items-center sm:gap-3">
-        <img
-          src={logo}
-          alt="Opit soittamaan!"
-          className="h-10 w-10 shrink-0 sm:h-12 sm:w-12"
-        />
+        <img src={logo} alt="Opit soittamaan!" className="h-10 w-10 shrink-0 sm:h-12 sm:w-12" />
         <div className="min-w-0 self-center">
           <h1 className="truncate text-lg font-extrabold text-primary sm:text-2xl">
             {instrument.title}
@@ -200,30 +195,6 @@ export function TunerScreen({
       {extra}
 
       <div className="flex flex-1 flex-col items-center justify-center py-1 sm:py-2">
-        {phase === "start" && (
-          <section className="card-soft w-full max-w-md p-7 text-center">
-            <p className="text-sm font-bold uppercase tracking-wide text-muted-foreground">
-              Opit soittamaan!
-            </p>
-            <h2 className="text-3xl font-extrabold text-primary">{instrument.title}</h2>
-            <img
-              src={instrument.cover}
-              alt={`Konna ja ${instrument.name.toLowerCase()}`}
-              className="mx-auto my-4 h-52 w-auto sm:h-64"
-            />
-            <button type="button" className="btn-big w-full" onClick={() => beginTuning(false)}>
-              ALOITA VIRITYS
-            </button>
-            <button
-              type="button"
-              className="btn-soft mt-3 w-full"
-              onClick={() => beginTuning(true)}
-            >
-              Valitse viritettävä kieli itse
-            </button>
-          </section>
-        )}
-
         {phase === "mic" && (
           <section className="card-soft w-full max-w-md p-7 text-center">
             <img src={konnaTuumii} alt="" className="mx-auto h-36" />
@@ -248,9 +219,9 @@ export function TunerScreen({
             >
               {micStatus === "requesting" ? "ODOTA HETKI…" : "SALLI MIKROFONI"}
             </button>
-            <button type="button" className="btn-soft mt-3" onClick={() => setPhase("start")}>
+            <Link to="/" className="btn-soft mt-3 inline-block">
               Takaisin
-            </button>
+            </Link>
           </section>
         )}
 
@@ -397,11 +368,7 @@ export function TunerScreen({
 
         {phase === "done" && (
           <section className="card-soft w-full max-w-md p-7 text-center">
-            <img
-              src={konnaPeukku}
-              alt="Iloinen konna näyttää peukkua"
-              className="mx-auto h-44"
-            />
+            <img src={konnaPeukku} alt="Iloinen konna näyttää peukkua" className="mx-auto h-44" />
             <h2 className="text-3xl font-extrabold text-primary">
               Hienoa! {instrument.name} on vireessä!
             </h2>
