@@ -2,7 +2,6 @@
 export function detectPitch(
   buf: Float32Array<ArrayBufferLike>,
   sampleRate: number,
-  minFreq = 35,
 ): { freq: number; clarity: number } | null {
   const size = buf.length;
 
@@ -12,7 +11,7 @@ export function detectPitch(
   const rms = Math.sqrt(sumSq / size);
   if (rms < 0.008) return null;
 
-  // Ukulele uses a 120 Hz floor; bass, guitar and kantele retain the 35 Hz floor.
+  const minFreq = 35; // below bass low E (41.2 Hz) with margin
   const maxFreq = 700; // above A4 with margin
   const minLag = Math.floor(sampleRate / maxFreq);
   const maxLag = Math.min(Math.floor(sampleRate / minFreq), Math.floor(size / 2));
