@@ -21,7 +21,7 @@ export function TunerScreen({
   instrument: Instrument;
   extra?: React.ReactNode;
 }) {
-  const { micStatus, reading, start, playSuccess, pauseFor } = useTuner(instrument.slug === "ukulele" ? 120 : 35);
+  const { micStatus, reading, start, playSuccess, pauseFor } = useTuner();
   const firstId = instrument.strings[0]!.id;
   const [phase, setPhase] = useState<Phase>("mic");
   const [manual, setManual] = useState(false);
