@@ -1,0 +1,124 @@
+name: Verify and publish multi-instrument tuner
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: "Build only, or back up and deploy /viritin/"
+        required: true
+        type: choice
+        default: verify
+        options:
+          - verify
+          - deploy
+      confirmation:
+        description: "To deploy, enter DEPLOY_VIRITIN (leave empty for verify)"
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: multi-instrument-tuner-deploy
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build and check static release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bun run build
+      - name: Verify correct static build and base path
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f .output/public/index.html
+          test -d .output/public/assets
+          if ! grep -q '/viritin/' .output/public/index.html; then
+            echo "::error::Built index lacks /viritin/ asset base; refusing deployment."
+            exit 1
+          fi
+          echo "Build output:"
+          find .output/public -maxdepth 2 -type f | sort | head -80
+      - uses: actions/upload-artifact@v4
+        with:
+          name: multi-tuner-static-${{ github.sha }}
+          path: .output/public/
+          if-no-files-found: error
+          retention-days: 14
+
+  deploy:
+    name: Back up live /viritin/ before publishing
+    needs: build
+    if: ${{ inputs.operation == 'deploy' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require deliberate confirmation
+        env:
+          CONFIRMATION: ${{ inputs.confirmation }}
+          SOURCE_REF: ${{ github.ref }}
+        run: |
+          test "$CONFIRMATION" = "DEPLOY_VIRITIN" || { echo "::error::Deployment confirmation missing"; exit 1; }
+          test "$SOURCE_REF" = "refs/heads/main" || { echo "::error::Deploy only from main"; exit 1; }
+      - uses: actions/download-artifact@v4
+        with:
+          name: multi-tuner-static-${{ github.sha }}
+          path: release
+      - name: Verify downloaded release
+        run: |
+          set -euo pipefail
+          test -f release/index.html
+          test -d release/assets
+          grep -q '/viritin/' release/index.html
+      - name: Install FTPS client
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+      - name: Check credentials without printing them
+        env:
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          test -n "$FTP_PASSWORD" || { echo "::error::Add FTP_PASSWORD in this repository Actions secrets"; exit 1; }
+      - name: Take full remote snapshot (no changes to server)
+        env:
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          mkdir -p backup/live
+          lftp -c "
+            set cmd:fail-exit yes;
+            set ftp:ssl-force true;
+            set ftp:ssl-protect-data true;
+            set ssl:verify-certificate true;
+            open -p 21 cpsrv21.misshosting.com;
+            user github-app@opitco.fi \"$FTP_PASSWORD\";
+            mirror --verbose viritin backup/live;
+            bye
+          "
+          test -f backup/live/index.html || { echo "::error::Remote index backup missing. Stop."; exit 1; }
+          echo "Remote snapshot completed; no server files changed."
+      - name: Save remote snapshot as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: multi-tuner-live-before-${{ github.run_id }}
+          path: backup/live/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Upload new release without deleting unrelated remote files
+        env:
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          lftp -c "
+            set cmd:fail-exit yes;
+            set ftp:ssl-force true;
+            set ftp:ssl-protect-data true;
+            set ssl:verify-certificate true;
+            open -p 21 cpsrv21.misshosting.com;
+            user github-app@opitco.fi \"$FTP_PASSWORD\";
+            mirror --reverse --verbose --no-perms release viritin;
+            bye
+          "
+          echo "Upload completed. Run real-device microphone tests before considering the release verified."
