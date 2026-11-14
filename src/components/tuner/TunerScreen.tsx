@@ -190,7 +190,7 @@ export function TunerScreen({
           {phase === "tuning" && (
             <button
               type="button"
-              className="btn-soft min-h-10 whitespace-nowrap border-2 border-primary !px-3 !py-2 text-xs shadow-sm sm:!px-4 sm:text-sm"
+              className="btn-soft min-h-10 w-max shrink-0 whitespace-nowrap border-2 border-primary !px-5 !py-2 text-xs shadow-sm sm:!px-6 sm:text-sm"
               onClick={() => {
                 setManual((m) => !m);
                 setLocked(false);
