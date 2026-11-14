@@ -8,7 +8,7 @@ export type Reading = {
   clarity: number;
 };
 
-export function useTuner(minFreq = 35) {
+export function useTuner() {
   const [micStatus, setMicStatus] = useState<MicStatus>("idle");
   const [reading, setReading] = useState<Reading>({ freq: null, clarity: 0 });
 
@@ -30,7 +30,7 @@ export function useTuner(minFreq = 35) {
     if (pausedRef.current) return;
 
     analyser.getFloatTimeDomainData(buf);
-    const res = detectPitch(buf, ctx.sampleRate, minFreq);
+    const res = detectPitch(buf, ctx.sampleRate);
 
     if (!res) {
       missesRef.current += 1;
@@ -55,7 +55,7 @@ export function useTuner(minFreq = 35) {
 
     const m = median(hist);
     if (m) setReading({ freq: m, clarity: res.clarity });
-  }, [minFreq]);
+  }, []);
 
   const start = useCallback(async () => {
     if (micStatus === "granted") return true;
