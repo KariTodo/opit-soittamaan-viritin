@@ -21,7 +21,7 @@ export function TunerScreen({
   instrument: Instrument;
   extra?: React.ReactNode;
 }) {
-  const { micStatus, reading, start, playSuccess, pauseFor } = useTuner();
+  const { micStatus, reading, start, playSuccess, pauseFor } = useTuner(instrument.slug === "ukulele" ? 120 : 35);
   const firstId = instrument.strings[0]!.id;
   const [phase, setPhase] = useState<Phase>("mic");
   const [manual, setManual] = useState(false);
@@ -157,7 +157,7 @@ export function TunerScreen({
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-4 pb-2 pt-2 sm:pb-2 sm:pt-2">
-      <header className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-2 sm:items-center sm:gap-3">
+      <header className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-2 sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center sm:gap-3">
         <img src={logo} alt="Opit soittamaan!" className="h-10 w-10 shrink-0 sm:h-12 sm:w-12" />
         <div className="min-w-0 self-center">
           <h1 className="truncate text-lg font-extrabold text-primary sm:text-2xl">
@@ -172,23 +172,34 @@ export function TunerScreen({
             www.opitsoittamaan.fi
           </a>
         </div>
-        <div className="flex shrink-0 flex-col items-stretch gap-1.5 self-start">
-          <div className="flex flex-col items-stretch gap-1 sm:flex-row sm:items-center sm:justify-end">
+        <div className="col-span-2 flex flex-wrap items-center justify-end gap-2 sm:col-span-1 sm:flex-nowrap">
+          <button
+            type="button"
+            onClick={() => setMuted((m) => !m)}
+            className="btn-soft whitespace-nowrap !px-3 !py-2 text-xs sm:!px-4 sm:text-sm"
+            aria-pressed={muted}
+          >
+            {muted ? "🔇 Äänet pois" : "🔊 Äänet"}
+          </button>
+          <Link
+            to="/"
+            className="btn-soft whitespace-nowrap !px-3 !py-2 text-center text-xs sm:!px-4 sm:text-sm"
+          >
+            Alkuun
+          </Link>
+          {phase === "tuning" && (
             <button
               type="button"
-              onClick={() => setMuted((m) => !m)}
-              className="btn-soft whitespace-nowrap !px-2.5 !py-1 text-xs sm:!px-3 sm:text-sm"
-              aria-pressed={muted}
+              className="btn-soft min-h-10 whitespace-nowrap border-2 border-primary !px-3 !py-2 text-xs shadow-sm sm:!px-4 sm:text-sm"
+              onClick={() => {
+                setManual((m) => !m);
+                setLocked(false);
+              }}
+              aria-pressed={manual}
             >
-              {muted ? "🔇 Äänet pois" : "🔊 Äänet"}
+              {manual ? "Automaattinen valinta" : "Valitse kieli itse"}
             </button>
-            <Link
-              to="/"
-              className="btn-soft whitespace-nowrap !px-2.5 !py-1 text-center text-xs sm:!px-3 sm:text-sm"
-            >
-              Alkuun
-            </Link>
-          </div>
+          )}
         </div>
       </header>
 
@@ -404,21 +415,6 @@ export function TunerScreen({
           </section>
         )}
       </div>
-
-      {phase === "tuning" && (
-        <div className="mb-1 flex justify-end px-2 pb-0 sm:mb-1 sm:px-3">
-          <button
-            type="button"
-            className="btn-soft max-w-[11rem] whitespace-normal leading-tight !px-4 !py-2.5 text-sm font-extrabold shadow-md ring-1 ring-primary/20 sm:max-w-none sm:whitespace-nowrap sm:text-base"
-            onClick={() => {
-              setManual((m) => !m);
-              setLocked(false);
-            }}
-          >
-            {manual ? "Automaattinen kielen valinta" : "Valitse kieli itse"}
-          </button>
-        </div>
-      )}
 
       <footer className="text-center text-[10px] leading-tight text-muted-foreground sm:text-xs">
         <p>
